@@ -140,7 +140,7 @@ piezas_a_augeriar_lista.sort()
 piezas_lijadas = ["base_afilador_300", "base_afilador_330", "base_afilador_250", "carcaza_afilador" ]
 piezas_lijadas.sort()
 
-piezas_prenza = ["guia_U", "eje_corto", "eje_largo", "pinche_lateral", "pinche_frontal"]
+piezas_prenza = ["guia_U", "eje_corto", "eje_largo"]
 piezas_prenza.sort()
 
 cabezal_inox = ["cabezal_250", "cabezal_inox"]
@@ -167,7 +167,7 @@ piezas_chapa_final = [
     
 ]
 
-pinches = ["pinche_frontal", "pinche_lateral", "pinche_frontal_250", "pinche_lateral_250", "bandeja_330", "bandeja_330"]
+pinches = ["pinche_frontal", "pinche_lateral", "pinche_frontal_250", "pinche_lateral_250", "bandeja_330", "bandeja_300"]
 
 def mecanizado(notebook):
     pestania = ttk.Frame(notebook, style='Color.TFrame')

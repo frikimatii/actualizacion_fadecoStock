@@ -721,12 +721,3 @@ def seccion_armado(notebook):
 
 #-------------------------------------------------------------------------------
 
-    box7 = ttk.Frame(caja5, style='Color.TFrame')
-    box7.grid(row=19, column=0, columnspan=2)
-    
-    ttk.Label(box7, text="Observaciones", style="WhiteOnRed.TLabel",font=("Arial", 14, "bold")).grid(row=0, column=0)
-    caja_texto = tk.Text(box7, height=4, width=30,)
-    caja_texto.grid(row=1, column=0, columnspan=1)
-    ttk.Button(
-        box7, text="Enviar", style="Estilo4.TButton", command=lambda: agregar_a_lista_tarea(caja_texto, result)
-    ).grid(row=1, column=1, sticky="e", pady=3, padx=3)

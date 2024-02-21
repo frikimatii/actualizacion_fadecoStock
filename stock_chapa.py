@@ -22,7 +22,10 @@ from funciones import (
     armar_cabezales_inox,
     armar_cabezales_250,
     armar_cabezales_pint,
-    sort_column_alpha
+    sort_column_alpha,
+    consulta_de_piezas_eco,
+    calcular_maquinas_posibles_eco
+    
 )
 
 
@@ -35,7 +38,9 @@ piezas_pedefinida_chapas_base = [
     "lateral_atras_300",
     "chapa_principal_250",
     "lateral_front_250",
-    "lateral_atras_250"
+    "lateral_atras_250",
+    "lateral_front_eco"
+    
 ]
 
 base_inox_330 = {"chapa_principal_330": 1, "lateral_front_330": 1, "lateral_atras_330": 1}
@@ -48,13 +53,15 @@ base_pintada_300 = {"chapa_principal_300": 1, "lateral_front_300": 1, "lateral_a
 
 base_inox_250 = {"chapa_principal_250": 1, "lateral_front_250": 1, "lateral_atras_250": 1}
 
+base_eco = {"chapa_principal_330": 1, "lateral_front_eco": 1, "lateral_atras_330": 1, "planchuela_330": 1, "varilla_330": 1, "portaeje": 1}
+
 piezas_faltante_330 = {"planchuela_330", "varilla_330", "portaeje"}
 
 piezas_faltante_250 = {"planchuela_250", "varilla_250", "portaeje"}
 
 piezas_faltante_300 = {"planchuela_300", "varilla_300", "portaeje"}
 
-tipos_de_bases = ["Inox 330", "Inox 300", "Inox_250", "Pintada 330", "Pintada 300"]
+tipos_de_bases = ["Inox 330", "Inox 300", "Inox_250", "Pintada 330", "Pintada 300" , "Eco"]
 
 cabezal_final = ["chapa_U_cabezal", "tapa_cabezal", "bandeja_cabezal" ,"chapa_U_cabezal_250", "tapa_cabezal_250", "bandeja_cabezal_250"]
 piezas_restante = [
@@ -107,7 +114,15 @@ bases_dict = {
         "planchuela": "planchuela_250",
         "varilla": "varilla_250",
         "portaeje": "portaeje",
-    }
+    },
+    "Eco":{
+        "chapa_principal" : "chapa_principal_330",
+        "lateral_from_eco" : "lateral_from_eco",
+        "lateral_atras" : "lateral_atras_330",
+        "panchuela" : "planchuela_330",
+        "varilla": "varilla_330",
+        "portaeje" : "portaeje"  
+        }
 }
 
 cabezales_inox = {"chapa_U_cabezal", "tapa_cabezal", "bandeja_cabezal"}
@@ -364,6 +379,8 @@ def crear_pestana_chapa(notebook):
     ttk.Button(botonera_consulta,text="Pintura 300", style="3D.TButton",command=lambda: consulta_de_piezas(tabla_chapa, "pintura", "300", subtitulo)).grid(row=1, column=1, padx=2, pady=2, sticky="w")
 
     ttk.Button(botonera_consulta, text="Inox 250", style="3D.TButton",command=lambda: consulta_de_piezas(tabla_chapa, "acero", "250", subtitulo)).grid(row=0, column=2, padx=2, pady=2, sticky="e")
+    ttk.Button(botonera_consulta, text="Eco", style="3D.TButton",command=lambda: consulta_de_piezas_eco(tabla_chapa, subtitulo)).grid(row=1, column=2, padx=2, pady=2, sticky="e")
+
 
     ttk.Separator(box2, orient="horizontal").grid(
         row=11, column=0, columnspan=2, sticky="ew", padx=5, pady=5
@@ -617,7 +634,7 @@ def crear_pestana_chapa(notebook):
             base_inox_330, "acero", "330", lista_acciones
         ),
     )
-    btn_i_330.grid(row=1, column=0, padx=2)
+    btn_i_330.grid(row=1, column=0, padx=1)
 
     btn_i_300 = ttk.Button(
         caja_botones,
@@ -626,7 +643,7 @@ def crear_pestana_chapa(notebook):
             base_inox_300, "acero", "300", lista_acciones
         ),
     )
-    btn_i_300.grid(row=1, column=1, padx=2)
+    btn_i_300.grid(row=1, column=1, padx=1)
 
     btn_p_330 = ttk.Button(
         caja_botones,
@@ -635,7 +652,7 @@ def crear_pestana_chapa(notebook):
             base_pintada_330, "pintura", "330", lista_acciones
         ),
     )
-    btn_p_330.grid(row=1, column=2, padx=2)
+    btn_p_330.grid(row=1, column=2, padx=1)
 
     btn_p_300 = ttk.Button(
         caja_botones,
@@ -644,7 +661,7 @@ def crear_pestana_chapa(notebook):
             base_pintada_300, "pintura", "300", lista_acciones
         ),
     )
-    btn_p_300.grid(row=1, column=3, padx=2)
+    btn_p_300.grid(row=1, column=3, padx=1)
     
     btn_i_250 = ttk.Button(
         caja_botones,
@@ -652,7 +669,13 @@ def crear_pestana_chapa(notebook):
         command=lambda: calcular_maquinas_posibles(
             base_inox_250, "acero", "250", lista_acciones
         ),)
-    btn_i_250.grid(row=1, column=4, padx=2)
+    btn_i_250.grid(row=1, column=4, padx=1)
+
+    btn_eco = ttk.Button(
+        caja_botones,
+        text="ECO",
+        command=lambda: calcular_maquinas_posibles_eco(base_eco, lista_acciones))  # Pasamos la función como argumento sin los paréntesis
+    btn_eco.grid(row=1, column=5, padx=1)
 
     ttk.Separator(box3, orient="horizontal").grid(
         row=10, column=0, columnspan=2, sticky="ew", padx=5, pady=5)
@@ -681,7 +704,7 @@ def crear_pestana_chapa(notebook):
         style="TButton",
         command=lambda: eliminar_cantidad_de_piezas(
             combocaja_soldador.get(),
-            entrada_cantidad_soldador.get(),
+            entrada_cantidad_soldador,
             tabla_chapa,
             subtitulo,
             lista_acciones,
@@ -708,12 +731,7 @@ def crear_pestana_chapa(notebook):
         resibidas_base,
         text="Bases Terminadas",
         style="TButton",
-        command=lambda: bases_soldador_terminadas(
-            combocaja_terminadas.get(),
-            entrada_cantidad_terminadas.get(),
-            lista_acciones,
-            tabla_chapa,
-        ),
+        command=lambda: bases_soldador_terminadas(combocaja_terminadas.get(), entrada_cantidad_terminadas, lista_acciones, tabla_chapa)
     )
     btn_entrega_soldador.grid(row=3, column=1, pady=2)
 

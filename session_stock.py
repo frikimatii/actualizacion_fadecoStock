@@ -12,7 +12,8 @@ from funciones import (
     mostrar_chapa_cortada,
     mostrar_piezas_cortadas,
     mostrar_tornillo_guia_rueditas,
-    sort_column_alpha
+    sort_column_alpha,
+    mostrar_calcomania,
     
 )
 
@@ -40,7 +41,24 @@ piezas_chapa_final = [
 piezas_ = [
     "guia_U", "eje_rectificado", "varilla_brazo_330","varilla_brazo_300", "varilla_brazo_250", "tubo_manija", "tubo_manija_250", "cuadrado_regulador", "palanca_afilador", "eje_corto", "eje_largo"]
 
+calcomanias_folletos = [
+    "F_circulo",
+    "F_cuadrado",
+    "circulo_argentina",
+    "etiqueta_cable",
+    "etiqueta_peligro",
+    "fadeco_250_2estrella",
+    "fadeco_300_3estrella",
+    "fadeco_300_4estrella",
+    "fadeco_330_3estrella",
+    "fadeco_330_4estrella",
+    "fadeco_triangulo",
+    "garantia",
+    "manual_instuc"
+]
 
+
+calcomanias_folletos.sort()
 piezas_fundidor_aluminio.sort()
 piezas_fundidor_hierro.sort()
 piezas_plastico.sort()
@@ -762,21 +780,107 @@ def stock(notebook):
     
     
 #_----------------------------------obserbaciones------------------------------------------------
-    ttk.Label(caja5, text="Observaciones",style="Colortitulo.TLabel", font=("Arial", 13, "bold")).grid(row=16, column=0, columnspan=2)
-    caja_texto = tk.Text(caja5, height=10, width=30)
-    caja_texto.grid(row=17, column=0, columnspan=2)
+#    ttk.Label(caja5, text="Observaciones",style="Colortitulo.TLabel", font=("Arial", 13, "bold")).grid(row=16, column=0, columnspan=2)
+#    caja_texto = tk.Text(caja5, height=10, width=30)
+#    caja_texto.grid(row=17, column=0, columnspan=2)
+#
+#    boton_enviar = tk.Button(caja5, text="Enviar", command=lambda: agregar_a_lista_tarea(caja_texto, result))
+#    boton_enviar.grid(row=18, column=1, sticky="e", padx=4, pady=4)
+#
+## Configuración de estilo del botón
+#    boton_enviar.config(
+#        background="#584df9",  # Color de fondo
+#        foreground="white",   # Color del texto
+#        padx=20,              # Espaciado horizontal interno
+#        pady=5,               # Espaciado vertical interno
+#        font=('Helvetica', 8, "bold"),# Configuración de la fuente
+#        borderwidth=6,  # Ajusta el ancho del borde según tus preferencias
+#        relief="flat"  # Puedes cambiar el tipo de relieve (flat, groove, raised, ridge, solid, etc.)
+#
+#)
+    ttk.Label(caja5, text="Calcomanias",style="Colortitulo.TLabel", font=("Verdana", 12, "bold")).grid(
+        row=16, column=0, padx=1, pady=1, columnspan=2
+    )
+    ttk.Label(caja5, text="Agregar Piezas",style="Color.TLabel",font=( "Arial", 9, "bold")).grid(
+        row=17, column=0, padx=1, pady=1, columnspan=2
+    )
+    ttk.Label(caja5, text="Piezas",style="Color.TLabel").grid(row=18, column=0, padx=1, pady=1, sticky="e")
+    lista_calcos = ttk.Combobox(
+        caja5, values=calcomanias_folletos, state="readonly", width=16
+    )
+    lista_calcos.grid(row=18, column=1, padx=1, pady=1, sticky="w")
+    ttk.Label(caja5, text="Cantidad",style="Color.TLabel").grid(row=19, column=0, padx=1, pady=1, sticky="e")
+    cantidad_calco = ttk.Entry(caja5, style='WhiteOnRed.TEntry', width=10)
+    cantidad_calco.grid(row=19, column=1, padx=1, pady=1, sticky="w")
 
-    boton_enviar = tk.Button(caja5, text="Enviar", command=lambda: agregar_a_lista_tarea(caja_texto, result))
-    boton_enviar.grid(row=18, column=1, sticky="e", padx=4, pady=4)
+    tk.Button(
+        caja5,
+        text="Agregar Pieza",
+        background="green",
+        foreground="white",
+        padx=4,
+        pady=1,
+        font=('Helvetica', 8, "bold"),
+        command=lambda: actualizar_pieza(
+            lista_calcos,
+            cantidad_calco,
+            result,
+            "piezas_finales_defenitivas",
+            mostrar_datos,
+            tablafundidor,box
+        ),
+    ).grid(row=20, column=1, padx=1, pady=1)
 
-# Configuración de estilo del botón
-    boton_enviar.config(
-        background="#584df9",  # Color de fondo
-        foreground="white",   # Color del texto
-        padx=20,              # Espaciado horizontal interno
-        pady=5,               # Espaciado vertical interno
-        font=('Helvetica', 8, "bold"),# Configuración de la fuente
-        borderwidth=6,  # Ajusta el ancho del borde según tus preferencias
-        relief="flat"  # Puedes cambiar el tipo de relieve (flat, groove, raised, ridge, solid, etc.)
+    ttk.Separator(caja5, orient="horizontal", style="Separador2.TSeparator").grid(
+        row=21, column=0, columnspan=2, sticky="ew", padx=2, pady=2
+    )
 
-)
+    ttk.Label(caja5, text="Eliminar Pieza",style="Color.TLabel" ,font=( "Arial", 9, "bold")).grid(
+        row=22, column=0, padx=1, pady=1, columnspan=2
+    )
+    ttk.Label(caja5, text="Piezas",style="Color.TLabel").grid(row=23, column=0, padx=1, pady=1, sticky="e")
+    delete_calco = ttk.Combobox(
+        caja5, values=calcomanias_folletos, state="readonly",width=16
+    )
+    delete_calco.grid(row=23, column=1, padx=1, pady=1, sticky="w")
+    ttk.Label(caja5, text="Cantidad",style="Color.TLabel").grid(row=24, column=0, padx=1, pady=1, sticky="e")
+    entrada_calco_delete = ttk.Entry(caja5, style='WhiteOnRed.TEntry', width=10)
+    entrada_calco_delete.grid(row=24, column=1, padx=1, pady=1, sticky="w")
+
+    tk.Button(
+        caja5,
+        text="Elimimar Pieza",
+        background="red",
+        foreground="white",
+        padx=4,
+        pady=1,
+        font=('Helvetica', 8, "bold"),
+        command=lambda: eliminar_pieza(
+            delete_calco,
+            entrada_calco_delete,
+            result,
+            "piezas_finales_defenitivas",
+            mostrar_datos,
+            tablafundidor,box
+        ),
+    ).grid(row=25, column=1, padx=1, pady=1)
+
+    ttk.Separator(caja5, orient="horizontal", style="Separador2.TSeparator").grid(
+        row=26, column=0, columnspan=2, sticky="ew", padx=2, pady=2
+    )
+
+    ttk.Label(caja5, text="Consultas De Stock",style="Color.TLabel", font=("Arial", 12, "bold")).grid(row=27, column=0, columnspan=2)
+    btn_stock_en_bruto = tk.Button(
+        caja5,
+        text="Stock Calcomanias",
+        background="blue",  # Puedes ajustar el color de fondo según tus preferencias
+        foreground="white",
+        padx=4,
+        pady=2,
+        font=('Helvetica', 9),
+        command=lambda: mostrar_calcomania(tablafundidor, box),
+    )
+    btn_stock_en_bruto.grid(row=28, column=0, columnspan=2)
+
+    
+    

@@ -9,10 +9,11 @@ correcion de rulemanes
 agregado de rulemanes faltantes 
 agregado de ruleman de las cajas 
 agregado de funciones ordenar alfabeticamente 
-
-
-agregado de pinches 
-
+____________________________________________________
+agregado de pinches normales y para 250 
+agregado de bandejas para pintadas
+afirmacion antes de cada accion 
+agregado de calcomanias 
 
 
 agregado para la tabla de piezas_finales_defenitivas 
@@ -34,6 +35,21 @@ agregado para la tabla de piezas_finales_defenitivas
 114     pinche_frontal_250        0     chapa           armado_final       250  cortada
 115     bandeja_330               0     chapa           pre_armado         330  naza
 115     bandeja_300               0     chapa           pre_armado         300  naza
+117	garantia		  0	bolleto		contro_calidad	   all	imprenta
+118	manual_instruciones	  0	bolleto		contro_calidad	   all	imprenta
+119	etiqueta_peligro	  0	calco		contro_calidad	   all	imprenta
+120	fadeco_330_4estrella	  0	calco		contro_calidad	   330	imprenta
+121	fadeco_300_4estrella	  0	calco		contro_calidad	   300	imprenta
+122	fadeco_250_2estrella	  0	calco		contro_calidad	   250	imprenta
+123	fadeco_330_3estrella	  0	calco		contro_calidad	   330	imprenta
+124	fadeco_300_3estrella	  0	calco		contro_calidad	   300	imprenta
+125	F_circulo		  1	calco		contro_calidad	   all	imprenta
+126	F_cuadrado		  1	calco		contro_calidad	   all	imprenta
+127	circulo_argentina	  0	calco		contro_calidad	   all	imprenta
+128	fadeco_triangulo	  0	calco		contro_calidad	   all	imprenta
+129	etiqueta_cable		  0	calco		contro_calidad	   all	imprenta
+
+
 ________________________________________________________________________________________________________
 
 
@@ -69,9 +85,7 @@ ____________________________________________________________________
 
 agregado de piezas 
 
-name: table 
-
-piezas_del_fundicion
+name: piezas_del_fundicion
 
 78	vela_cortada_330	0	chapa_cortada		cortado
 79	vela_cortada_300	0	chapa_cortada		cortado
@@ -79,4 +93,43 @@ piezas_del_fundicion
 81	planchada_cortada_250	0	chapa_cortada		cortado
 82	planchada_cortada_330	0	chapa_cortada		cortado
 83	planchada_cortada_300	0	chapa_cortada		cortado
+84	inox_eco		0	acero		eco	inox
+
+________________________________________________________________
+ new table 
+
+PARA CALCOMANIAS 
+
+
+calcomania_fadeco
+
+   piezas	      cantidad   tipo
+garantia		1300	 folleto
+manual_instuc		1000	 folleto
+etiqueta_peligro	624	 calco
+fadeco_300_3estrella	120	 calco
+fadeco_300_4estrella	1250	 calco
+fadeco_330_4estrella	1264	 calco
+fadeco_250_2estrella	480	 calco
+fadeco_330_3estrella	36	 calco
+F_circulo		940	 calco
+F_cuadrado		646	 calco
+circulo_argentina	1206	 calco
+fadeco_triangulo	984	 calco
+etiqueta_cable		600	 calco
+
+____________________________________________________________
+
+agregado de pizas a tabla chapa
+
+table chapa 
+
+35	acero	eco	lateral_front_eco	0
+
+table soldador_stock
+
+5	eco	inox	0
+
+
+
 
