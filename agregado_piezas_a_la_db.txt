@@ -1,0 +1,82 @@
+
+Actualizacion Fadeco v.1 
+
+agregado  de mecanizado de velas y planchas 
+agregado de provedor nuevo , afiladores Roman
+agregado de augeriado de carros y movimiento 
+correccion de lateral_R_ y lateral_L_ por front atras 
+correcion de rulemanes 
+agregado de rulemanes faltantes 
+agregado de ruleman de las cajas 
+agregado de funciones ordenar alfabeticamente 
+
+
+agregado de pinches 
+
+
+
+agregado para la tabla de piezas_finales_defenitivas 
+
+
+101	carros_final	          48	fundicion	pre_armado  	   all	agujeriado
+102	movimientos_final	  50	fundicion	pre_armado	   all	agujeriado
+103	carros_250_final	  37	fundicion	pre_armado	   250	agujeriado
+104	cuadrado_regulador_final  87	acero_dulce	armado_final	   all	soldador_fabrica
+105	resorte_palanca        	  0	none	        afilador	   all	shop
+106	resorte_empuje	          0	none	        afilador	   all	shop
+107	capuchon_250	          98	plastico	armado_final	   250	injentor
+108	ruleman6000	          98	none	        armado_de_caja     all	shop
+109	ruleman_6004	          0	none	        armado_de_caja     250	shop
+110	ruleman_6204	          0	none	        armado_de_caja	   250	shop
+111     pinche_lateral            0     chapa           armado_final       all  cortada
+112     pinche_frontal            0     chapa           armado_final       all  cortada
+113     pinche_lateral_250        0     chapa           armado_final       250  cortada
+114     pinche_frontal_250        0     chapa           armado_final       250  cortada
+115     bandeja_330               0     chapa           pre_armado         330  naza
+115     bandeja_300               0     chapa           pre_armado         300  naza
+________________________________________________________________________________________________________
+
+
+####  cambio de nombre de piezas  ####w
+
+nombre de tabla / piezas_finales_defenitivas
+
+ruleman_afiladores = ruleman608 
+ruleman_1 = ruleman_6005
+ruleman_2 = ruleman_6205
+orni = oring
+
+
+
+_------------------------------------------------------_
+
+
+new table 
+
+piezas_afiladores_roman
+
+   piezas	        cantidad
+capuchon_afilador	0
+carcaza_afilador	0
+eje_corto	        0
+eje_largo	        0
+ruleman608	        0
+palanca_afilador	0
+resorte_palanca	        0
+resorte_empuje	        0
+
+____________________________________________________________________
+
+agregado de piezas 
+
+name: table 
+
+piezas_del_fundicion
+
+78	vela_cortada_330	0	chapa_cortada		cortado
+79	vela_cortada_300	0	chapa_cortada		cortado
+80	vela_cortada_250	0	chapa_cortada		cortado
+81	planchada_cortada_250	0	chapa_cortada		cortado
+82	planchada_cortada_330	0	chapa_cortada		cortado
+83	planchada_cortada_300	0	chapa_cortada		cortado
+
