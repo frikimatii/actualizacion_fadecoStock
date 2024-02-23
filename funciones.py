@@ -1910,7 +1910,7 @@ def mostrar_piezas_cortadas(tabla, res, sub):
     cursor.execute("""
         SELECT piezas, SUM(cantidad) AS cantidad_cortada
         FROM piezas_del_fundicion
-        WHERE piezas IN ('guia_U', 'eje_rectificado', 'varilla_brazo_330', 'varilla_brazo_300', 'varilla_brazo_250', 'tubo_manija', 'tubo_manija_250', 'cuadrado_regulador', 'palanca_afilador', 'eje_corto', 'eje_largo')
+        WHERE piezas IN ('teletubi_eco','guia_U', 'eje_rectificado', 'varilla_brazo_330', 'varilla_brazo_300', 'varilla_brazo_250', 'tubo_manija', 'tubo_manija_250', 'cuadrado_regulador', 'palanca_afilador', 'eje_corto', 'eje_largo', 'caja_soldada_eco', 'buje_eje_eco')
         GROUP BY piezas
 
     """)
@@ -1941,7 +1941,7 @@ def mostrar_tornillo_guia_rueditas(tabla, res, sub):
     cursor.execute("""
         SELECT piezas, SUM(cantidad) AS cantidad_cortada
         FROM piezas_del_fundicion
-        WHERE piezas IN ('tornillo_guia', 'rueditas')
+        WHERE piezas IN ('tornillo_guia', 'rueditas', 'tornillo_teletubi_eco')
         GROUP BY piezas
     """)
     
@@ -1957,7 +1957,7 @@ def mostrar_tornillo_guia_rueditas(tabla, res, sub):
         color_fondo = obtener_color_fondo(cantidad)
         tabla.insert("", tk.END, values=(pieza, cantidad), tags=(color_fondo,))
     
-    res.insert(0, f"Stock de Tornillo Guia / Rueditas")
+    res.insert(0, f"Stock de Tornillo/ Rueditas")
     
     sub_text = f"Mostrando Varios"
     sub.config(text=sub_text)
@@ -2222,7 +2222,7 @@ def envios_de_bruto_a_pulido(
                 # Verificar si hay suficientes piezas en la primera tabla
                 if cantidad_actual >= cantidad:
                     # Solicitar confirmación al usuario antes de realizar cambios en la base de datos
-                    confirmacion = messagebox.askyesno("Confirmar", f"¿Estás seguro de enviar {cantidad} unidades de {pieza}?")
+                    confirmacion = messagebox.askyesno("Confirmar", f"¿Estás seguro de enviar al Pintor {cantidad} unidades de {pieza}?")
                     if confirmacion:
                         nueva_cantidad = cantidad_actual - cantidad
                         cursor.execute(
@@ -2492,7 +2492,7 @@ def envios_de_bruto_cabezal(
                 # Verificar si hay suficientes piezas en la primera tabla
                 if cantidad_actual >= cantidad:
                     # Solicitar confirmación al usuario antes de realizar cambios en la base de datos
-                    confirmacion = messagebox.askyesno("Confirmar", f"¿Estás seguro de enviar {cantidad} unidades de {pieza} al pintura?")
+                    confirmacion = messagebox.askyesno("Confirmar", f"¿Estás seguro de enviar a {cantidad} unidades de {pieza} al pintura?")
                     if confirmacion:
                         nueva_cantidad = cantidad_actual - cantidad
                         cursor.execute(
@@ -2668,13 +2668,27 @@ def actualizar_pieza_torno(lista_predefinida, entrada_cantidad, res, table, tree
                     )
                     conn.commit()
 
-                    # Extrae el valor del Entry antes de pasarlo a la consulta SQL
-                    cantidad_a_actualizar = entrada_cantidad.get()
-                    cursor.execute(
-                        "UPDATE piezas_finales_defenitivas SET cantidad = cantidad + ? WHERE piezas = ?",
-                        (cantidad_a_actualizar, actualizar_pieza),
-                    )
-                    conn.commit()
+                    if actualizar_pieza == "teletubi_eco":
+                        # Descuenta la cantidad deseada de "teletubi_eco"
+                        cursor.execute(
+                            "UPDATE piezas_del_fundicion SET cantidad = cantidad - ? WHERE piezas = ?",
+                            (entrada_actualizar, "teletubi_eco"),
+                        )
+                        conn.commit()
+                        # Actualiza la cantidad de "teletubi_doblado_eco"
+                        cursor.execute(
+                            "UPDATE piezas_del_fundicion SET cantidad = cantidad + ? WHERE piezas = ?",
+                            (entrada_actualizar, "teletubi_doblado_eco"),
+                        )
+                        conn.commit()
+                    else:
+                        # Actualiza la cantidad de la pieza en la tabla correspondiente
+                        cursor.execute(
+                            "UPDATE piezas_finales_defenitivas SET cantidad = cantidad + ? WHERE piezas = ?",
+                            (entrada_actualizar, actualizar_pieza),
+                        )
+                        conn.commit()
+
                     conn.close()
                     mostrar_datos(
                         tree, table, info
@@ -2696,6 +2710,7 @@ def actualizar_pieza_torno(lista_predefinida, entrada_cantidad, res, table, tree
     else:
         res.insert(0, "La cantidad ingresada no es un número válido")
     entrada_cantidad.delete(0, 'end')
+
 
 
 def actualizar_caja_torno(lista_predefinida, entrada_cantidad, res, tree):
@@ -2765,7 +2780,7 @@ def mostrar_piezas_torno_terminado(arbol, info):
     conn = sqlite3.connect("basedatospiezas.db")
     cursor = conn.cursor()
     cursor.execute(
-        "SELECT piezas, cantidad FROM piezas_finales_defenitivas WHERE piezas IN ( 'manchon', 'manchon_250', 'eje_250', 'eje', 'rueditas', 'tornillo_guia', 'carros', 'movimientos', 'carros_250');"
+        "SELECT piezas, cantidad FROM piezas_finales_defenitivas WHERE piezas IN ( 'manchon', 'manchon_250', 'eje_250', 'eje', 'rueditas', 'tornillo_guia', 'carros', 'movimientos', 'carros_250', 'buje_eje_eco');"
     )
     datos = cursor.fetchall()
     conn.close()
@@ -3005,7 +3020,7 @@ def mostrar_datos_mecanizado(arbol, info, piezas, tipo, tabla):
     placeholders = ",".join(["?" for _ in piezas])
     
     # Consulta SQL con marcadores de posición
-    query = f"SELECT piezas, cantidad FROM {tabla} WHERE piezas IN ({placeholders})"
+    query = f"SELECT piezas, cantidad FROM {tabla} WHERE piezas IN ({placeholders})  "
     
     cursor.execute(query, piezas)
     datos = cursor.fetchall()
@@ -3338,6 +3353,22 @@ def mostrar_pieza(arbol, piezas, res):
     cursor = conn.cursor()
     cursor.execute(
         f"SELECT piezas ,cantidad FROM piezas_finales_defenitivas WHERE piezas = '{piezas}'"
+    )
+    datos = cursor.fetchall()
+    conn.close()
+    for item in arbol.get_children():
+        arbol.delete(item)
+    for dato in datos:
+        arbol.insert("", "end", values=dato)
+
+    text = "Mostrar Cantidad De Motore"
+    res.config(text=text)
+
+def mostrar_motores(arbol, res):
+    conn = sqlite3.connect("basedatospiezas.db")
+    cursor = conn.cursor()
+    cursor.execute(
+        f"SELECT piezas ,cantidad FROM piezas_finales_defenitivas WHERE piezas IN ('motores_220w', 'motores250_220w', 'motores_eco')"
     )
     datos = cursor.fetchall()
     conn.close()
@@ -4251,31 +4282,31 @@ def consulta_afiladores(arbol, mostrar):
         print(f"Error SQLite: {e}")
 
 i330 = {
-    "brazo_330": 1,
-    "cubrecuchilla_330": 1,
-    "velero": 1,
-    "perilla_brazo": 1,
-    "cabezal_inox": 1,
+    "brazo_330": 1,#
+    "cubrecuchilla_330": 1,#
+    "velero": 1,#
+    "perilla_brazo": 1,#
+    "cabezal_inox": 1,#
     "teletubi_330": 1,
-    "cuchilla_330": 1,
-    "cuadrado_regulador_final": 1,
-    "vela_final_330": 1,
+    "cuchilla_330": 1,#
+    "cuadrado_regulador_final": 1,#
+    "vela_final_330": 1,#
     "cubre_motor_rectangulo": 1,
     "cubre_motor_cuadrado": 1,
-    "planchada_final_330": 1,
-    "varilla_brazo_330": 1,
-    "resorte_brazo": 1,
-    "tapa_afilador": 1,
-    "pipas": 2,
-    "tubo_manija": 1,
-    "afilador_final": 1,
-    "perilla_cubrecuchilla": 2,
-    "perilla_afilador": 1,
+    "planchada_final_330": 1,#
+    "varilla_brazo_330": 1,#
+    "resorte_brazo": 1,#
+    "tapa_afilador": 1,#
+    "pipas": 2,#
+    "tubo_manija": 1,#
+    "afilador_final": 1,#
+    "perilla_cubrecuchilla": 2,#
+    "perilla_afilador": 1,#
     "base_afilador_330": 1,
-    "base_pre_armada330inox": 1,
-    "piedra_afilador": 1,
-    "pinche_frontal" : 1,
-    "pinche_lateral" : 1,
+    "base_pre_armada330inox": 1,#
+    "piedra_afilador": 1,#
+    "pinche_frontal" : 1,#
+    "pinche_lateral" : 1,#
     "garantia": 1,
     "manual_instruc": 1,
     "etiqueta_peligro": 1,
@@ -5281,6 +5312,7 @@ def agujeriado(pieza, cantidad_entry, tabla, info_listbox):
                         info_listbox.insert(0, f"No suficientes {pieza} en stock")
                 else:
                     info_listbox.insert(0, f"No hay {pieza} en stock")       
+                    
             elif pieza == "carros_final":
                 # Obtener la cantidad actual en la tabla 'carros'
                 cursor.execute("SELECT cantidad FROM piezas_finales_defenitivas WHERE piezas = 'carros'")
@@ -5301,6 +5333,28 @@ def agujeriado(pieza, cantidad_entry, tabla, info_listbox):
                 else:
                     info_listbox.insert(0, f"No hay {pieza} en stock")
 
+            elif pieza == "tornillo_teletubi_eco_fin":
+                # Obtener la cantidad actual en la tabla 'carros'
+                cursor.execute("SELECT cantidad FROM piezas_del_fundicion WHERE piezas = 'tornillo_teletubi_eco'")
+                cantidad_actual = cursor.fetchone()[0]
+
+                # Verificar si la cantidad actual es mayor que 0
+                if cantidad_actual > 0:
+                    # Verificar si la cantidad actual es mayor o igual a la cantidad a restar
+                    if cantidad_actual >= cantidad:
+                        # Actualizar la cantidad en la tabla 'Piezas_final_defenitivas'
+                        cursor.execute("UPDATE piezas_del_fundicion SET cantidad = cantidad - ? WHERE piezas = 'tornillo_teletubi_eco'", (cantidad,))
+
+                        # Actualizar la cantidad en la tabla 'Piezas_final_defenitivas'
+                        cursor.execute("UPDATE piezas_finales_defenitivas SET cantidad = cantidad + ? WHERE piezas = 'tornillo_teletubi_eco_fin'", (cantidad,))
+                        info_listbox.insert(0, f"Se agujerearon {cantidad} {pieza} ")
+                    else:
+                        info_listbox.insert(0, f"No suficientes {pieza} en stock")
+                else:
+                    info_listbox.insert(0, f"No hay {pieza} en stock")
+
+                    
+
             elif pieza == "carros_250_final":
                 # Obtener la cantidad actual en la tabla 'carros'
                 cursor.execute("SELECT cantidad FROM piezas_finales_defenitivas WHERE piezas = 'carros_250'")
@@ -5319,7 +5373,9 @@ def agujeriado(pieza, cantidad_entry, tabla, info_listbox):
                     else:
                         info_listbox.insert(0, f"No suficientes {pieza} en stock")
                 else:
-                    info_listbox.insert(0, f"No hay {pieza} en stock")                
+                    info_listbox.insert(0, f"No hay {pieza} en stock")    
+
+  
             elif pieza == "movimientos_final":
                 # Obtener la cantidad actual en la tabla 'carros'
                 cursor.execute("SELECT cantidad FROM piezas_finales_defenitivas WHERE piezas = 'movimientos'")
@@ -5354,7 +5410,7 @@ def agujeriado(pieza, cantidad_entry, tabla, info_listbox):
 def mostrar_pieza_sin_augeriar(tree1, info):
     conn = sqlite3.connect("basedatospiezas.db")
     cursor = conn.cursor()
-    cursor.execute(f"SELECT piezas, cantidad FROM piezas_finales_defenitivas WHERE piezas IN ('carros', 'movimientos', 'carros_250') UNION  SELECT piezas, cantidad FROM piezas_del_fundicion WHERE piezas = 'cuadrado_regulador'")
+    cursor.execute(f"SELECT piezas, cantidad FROM piezas_finales_defenitivas WHERE piezas IN ('carros', 'movimientos', 'carros_250') UNION  SELECT piezas, cantidad FROM piezas_del_fundicion WHERE piezas IN ( 'cuadrado_regulador', 'tornillo_teletubi_eco') ")
  
     datos = cursor.fetchall()
     conn.close()
@@ -5369,7 +5425,7 @@ def mostrar_pieza_sin_augeriar(tree1, info):
 def mostrar_pieza_augeriada(tree1, info):
     conn = sqlite3.connect("basedatospiezas.db")
     cursor = conn.cursor()
-    cursor.execute(f"SELECT piezas, cantidad FROM piezas_finales_defenitivas WHERE piezas IN ('carros_final', 'movimientos_final', 'carros_250_final', 'cuadrado_regulador_final')")
+    cursor.execute(f"SELECT piezas, cantidad FROM piezas_finales_defenitivas WHERE piezas IN ('carros_final', 'movimientos_final', 'carros_250_final', 'cuadrado_regulador_final', 'tornillo_teletubi_eco_fin')")
     datos = cursor.fetchall()
     conn.close()
     for item in tree1.get_children():

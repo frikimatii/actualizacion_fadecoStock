@@ -42,6 +42,7 @@ piezas_a_torner_lista = [
     "carros",
     "movimientos",
     "carros_250",
+    "buje_eje_eco"
 ]
 piezas_a_torner_lista.sort()
 motores_finales330 = [
@@ -134,13 +135,13 @@ modelo250 = {
 
 }
 
-piezas_a_augeriar_lista = ["cuadrado_regulador_final", "carros_final", "movimientos_final", "carros_250_final"]
+piezas_a_augeriar_lista = ["cuadrado_regulador_final", "carros_final", "movimientos_final", "carros_250_final", "tornillo_teletubi_eco_fin"]
 piezas_a_augeriar_lista.sort()
 
 piezas_lijadas = ["base_afilador_300", "base_afilador_330", "base_afilador_250", "carcaza_afilador" ]
 piezas_lijadas.sort()
 
-piezas_prenza = ["guia_U", "eje_corto", "eje_largo"]
+piezas_prenza = ["guia_U", "eje_corto", "eje_largo", "teletubi_eco"]
 piezas_prenza.sort()
 
 cabezal_inox = ["cabezal_250", "cabezal_inox"]
@@ -354,7 +355,7 @@ def mecanizado(notebook):
         padx=4,
         pady=1,
         font=('Helvetica', 8, "bold"),
-        command=lambda: agujeriado(piezas_a_augerias.get(), int(cantidad_augeriada.get()), arbol, result),
+        command=lambda: agujeriado(piezas_a_augerias.get(), cantidad_augeriada, arbol, result),
     ).grid(row=3, column=1, pady=2)
     
     stock_aujeriado = ttk.Frame(caja2, style='Color.TFrame')

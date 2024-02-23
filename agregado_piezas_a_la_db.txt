@@ -48,8 +48,20 @@ agregado para la tabla de piezas_finales_defenitivas
 127	circulo_argentina	  0	calco		contro_calidad	   all	imprenta
 128	fadeco_triangulo	  0	calco		contro_calidad	   all	imprenta
 129	etiqueta_cable		  0	calco		contro_calidad	   all	imprenta
-
-
+130	inox_eco		  0	acero		pre_armado	   eco	pulido
+131	caja_soldada_eco	  0	pintura		armado_de_caja	   eco	pintor
+132	polea_grande		  0	plastico	armado_de_caja	   eco	injentor
+133	polea_chica		  0	plastico	armado_de_caja 	   eco	injentor
+134	tornillo_teletubi_eco_fin 0	acero_dulce	armado_de_caja	   eco	augeriado
+135	capacitores_eco		  0	none		armado_de_caja	   eco	shop
+136	conector_hembra		  0	none		armado_de_caja 	   eco	shop
+137	cable_corto_eco		  0	none		armado_de_caja	   eco	shop
+138	motores_eco		  120	none		armado_de_caja	   eco	shop
+139	tapa_plastico_eco	  0	plastico	armado_de_caja	   eco	injentor
+140	correa_eco		  0	none		armado_de_caja	   eco	shop
+141	capuchon_motor_eco	  0	plastico	armado_de_caja	   eco	injentor
+142	buje_eje_eco		  54	acero_dulce	armado_de_caja	   eco	torno
+143	rectangulo_plastico_eco	  0	plastico	armado_de_caja	   eco	shop
 ________________________________________________________________________________________________________
 
 
@@ -94,6 +106,9 @@ name: piezas_del_fundicion
 82	planchada_cortada_330	0	chapa_cortada		cortado
 83	planchada_cortada_300	0	chapa_cortada		cortado
 84	inox_eco		0	acero		eco	inox
+85	caja_soldada_eco	0	pintura		eco	pintor
+86	tornillo_teletubi_eco	0	tornillo	eco	augeriado
+87	buje_eje_eco		0	acero_dulce	eco	torno
 
 ________________________________________________________________
  new table 
@@ -120,16 +135,25 @@ etiqueta_cable		600	 calco
 
 ____________________________________________________________
 
-agregado de pizas a tabla chapa
-
+agregado de pizas a tablas
+____________________________________________________________
 table chapa 
-
+-----------
 35	acero	eco	lateral_front_eco	0
-
+__________________________________________________________
 table soldador_stock
-
+--------------------
 5	eco	inox	0
+_______________________________________________________
+table carmelo_pulido
+--------------------
+inox_eco	0	330	chapa
+________________________________________________________
+table maxi_pulido
+-----------------
+37	inox_eco	0	330	chapa
+________________________________________________________
+table piezas_retocadas
+----------------------
 
-
-
-
+caja_soldada_eco	0	pintor

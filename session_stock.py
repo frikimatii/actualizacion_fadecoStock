@@ -22,13 +22,15 @@ piezas_fundidor_aluminio = [
    "caja_250", "caja_300", "caja_330", "brazo_300", "brazo_250", "manchon", "manchon_250", "eje", "eje_250", "cubrecuchilla_330", "cubrecuchilla_300", "cubrecuchilla_250",
    "teletubi_250", "teletubi_300", "teletubi_330", "velero", "aro_numerador", "base_afilador_330", "base_afilador_300", "base_afilador_250", "tapa_afilador", "tapa_afilador_250", "carcaza_afilador"
 ]
+
 piezas_fundidor_hierro = ["carros", "movimientos", "carros_250"]
-piezas_plastico = [
-    "perilla_numerador", "espiral", "perilla_brazo", "cubre_motor_rectangulo", "cubre_motor_cuadrado", "tapita_perilla","capuchon_afilador", "capuchon_250"
-]
-shop = [
-    "cable_220w", "ruleman_6005", "ruleman_6205", "oring", "capacitores", "capacitores_250", "cuchilla_330", "cuchilla_300", "cuchilla_250", "resorte_brazo", "perilla_cubrecuchilla", "perilla_afilador", "resorte_movimiento", "seguer", "sinfin", "resorte_carro", "piedra_afilador", "patas", "teclas", "corona_330", "corona_300", "corona_250", "pipas", "motores_220w", "motores250_220w", "ruleman608", "resorte_palanca", "resorte_empuje", "ruleman6000", "ruleman_6004", "ruleman_6204",]
-tornilleria = ["tornillo_guia","rueditas"]
+
+piezas_plastico = ["tapa_afilador_eco" ,"rectangulo_plastico_eco", "capuchon_motor_eco", "perilla_numerador", "espiral", "perilla_brazo", "cubre_motor_rectangulo", "cubre_motor_cuadrado", "tapita_perilla","capuchon_afilador", "capuchon_250", "polea_chica", "polea_grande","tapa_plastico_eco"]
+
+shop = ["cable_220_eco", "correa_eco", "cable_220w", "ruleman_6005", "ruleman_6205", "oring", "capacitores", "cable_corto_eco", "conector_hembra", "capacitores_250","capacitores_eco", "cuchilla_330", "cuchilla_300", "cuchilla_250", "resorte_brazo", "perilla_cubrecuchilla", "perilla_afilador", "resorte_movimiento", "seguer", "sinfin", "resorte_carro", "piedra_afilador", "patas", "teclas", "corona_330", "corona_300", "corona_250", "pipas","motores_eco", "motores_220w", "motores250_220w", "ruleman608", "resorte_palanca", "resorte_empuje", "ruleman6000", "ruleman_6004", "ruleman_6204",]
+
+tornilleria = ["tornillo_guia","rueditas", "tornillo_teletubi_eco"]
+
 piezas_chapa_final = [
     "vela_cortada_330",
     "vela_cortada_300",
@@ -39,7 +41,7 @@ piezas_chapa_final = [
     
 ]
 piezas_ = [
-    "guia_U", "eje_rectificado", "varilla_brazo_330","varilla_brazo_300", "varilla_brazo_250", "tubo_manija", "tubo_manija_250", "cuadrado_regulador", "palanca_afilador", "eje_corto", "eje_largo"]
+    "teletubi_eco","guia_U", "eje_rectificado", "varilla_brazo_330","varilla_brazo_300", "varilla_brazo_250", "tubo_manija", "tubo_manija_250", "cuadrado_regulador", "palanca_afilador", "eje_corto", "eje_largo","caja_soldada_eco", "buje_eje_eco"]
 
 calcomanias_folletos = [
     "F_circulo",
@@ -593,10 +595,10 @@ def stock(notebook):
     ttk.Separator(caja4, orient="horizontal", style="Separador1.TSeparator").grid(row=14, column=0, columnspan=2, sticky="ew", padx=3, pady=3)
     
     
-#---------------------------------------pieza  ----------------------------
+#---------------------------------------pieza cortadas ----------------------------
 
 
-    ttk.Label(caja4, text="Piezas ",style="Colortitulo.TLabel", font=("Arial", 12, "bold")).grid(
+    ttk.Label(caja4, text="Piezas Cortadas",style="Colortitulo.TLabel", font=("Arial", 12, "bold")).grid(
         row=15, column=0, padx=1, pady=1, columnspan=2
     )
     ttk.Label(caja4, text="Agregar Piezas",style="Color.TLabel", font=("Arial", 9,"bold")).grid(

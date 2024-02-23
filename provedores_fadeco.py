@@ -22,7 +22,7 @@ from funciones import (
     sort_column_alpha
 )
 
-modelo_piezas = ["base_pintada_330", "base_pintada_300"]  
+modelo_piezas = ["base_pintada_330", "base_pintada_300", "caja_soldada_eco", "teletubi_doblado_eco"]  
 modelo_piezas.sort()
 niquelado = [
     "eje_rectificado",
@@ -60,7 +60,8 @@ piezas_carmelo = [
     "caja_torneado_250",
     "inox_330",
     "inox_300",
-    "inox_250"
+    "inox_250",
+    "inox_eco"
 ]
 piezas_carmelo.sort()
 piezas_maxi = [
@@ -88,7 +89,8 @@ piezas_maxi = [
     "caja_torneado_250",
     "inox_330",
     "inox_300",
-    "inox_250"
+    "inox_250",
+    "inox_eco"
 ]
 piezas_maxi.sort()
 pieza_buen_hombre =  [
@@ -116,7 +118,8 @@ pieza_buen_hombre =  [
     "caja_torneado_250",
     "inox_330",
     "inox_300",
-    "inox_250"
+    "inox_250",
+    "inox_eco"
 ]
 pieza_buen_hombre.sort()
 

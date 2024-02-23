@@ -1,6 +1,6 @@
 import tkinter as tk
 from tkinter import ttk
-from funciones import sort_column_alphanumeric, mostrar_piezas_armados, mostrar_pieza, mostrar_piezas_modelo, ensamblar_motor_terminado,mostrar_datos, eliminar_pieza, stock_prearmado, actualizar_inventario, mostrar_pieza_afilador, mostrar_afilador_final, motores_terminados,armado_final_afiladores_y_agregar_cantidad,  mostrar_por_pieza, bases_terminados, mostrar_piezas_finales, mostrar_piezas_i330, armado_de_maquinas, mostrar_maquinas_teminadas, agregar_a_lista_tarea,sort_column, sort_column_alpha
+from funciones import sort_column_alphanumeric, mostrar_piezas_armados, mostrar_pieza, mostrar_piezas_modelo, ensamblar_motor_terminado,mostrar_datos, eliminar_pieza, stock_prearmado, actualizar_inventario, mostrar_pieza_afilador, mostrar_afilador_final, motores_terminados,armado_final_afiladores_y_agregar_cantidad,  mostrar_por_pieza, bases_terminados, mostrar_piezas_finales, mostrar_piezas_i330, armado_de_maquinas, mostrar_maquinas_teminadas, agregar_a_lista_tarea,sort_column, sort_column_alpha, mostrar_motores
 
 tipo = ["330", "300", "250"]
 
@@ -24,8 +24,20 @@ piezas_delete_armadocaja = [
     "oring",
     "ruleman6000",
     "ruleman_6004",
-    "ruleman_6204"
-
+    "ruleman_6204",
+    "caja_soldada_eco",
+    "polea_grande",
+    "polea_chica",
+    "tornillo_teletubi_eco_fin",
+    "capacitores_eco",
+    "conector_hembra",
+    "cable_corto_eco",
+    "motores_eco",
+    "tapa_plastico_eco",
+    "correa_eco",
+    "capuchon_motor_eco",
+    "buje_eje_eco",
+    "rectangulo_plastico_eco"
 ]
 
 piezas_delete_armadocaja.sort()
@@ -65,6 +77,7 @@ piezas_delete_prearmado = [
     "varilla_carro_330",
     "bandeja_330",
     "bandeja_300"
+    "inox_eco"
 ]
 piezas_delete_prearmado.sort()
 
@@ -309,7 +322,8 @@ piezas_armado_final_delete = [
     "pinche_lateral", 
     "pinche_frontal",
     "pinche_frontal_250",
-    "pinche_lateral_250" 
+    "pinche_lateral_250", 
+    "teletubi_eco_final"
 ]
 
 
@@ -389,16 +403,7 @@ def seccion_armado(notebook):
         foreground= "white",
         padx=4,
         pady=1,
-        command=lambda: mostrar_pieza(arbol, "motores_220w", res)).grid(row=1, column=1, padx=1)
-    tk.Button( 
-        motores,
-        text="Motores 250 ",
-        font=('Arial', 10, "italic"),
-        background= "gray", 
-        foreground= "white",
-        padx=4,
-        pady=1,
-        command=lambda: mostrar_pieza(arbol, "motores250_220w", res)).grid(row=1, column=2, padx=1)
+        command=lambda: mostrar_motores(arbol, res)).grid(row=1, column=1, padx=1)
 
     ttk.Separator(caja2, orient="horizontal", style="Separador2.TSeparator").grid(
         row=2, column=0, sticky="ew", columnspan=2, padx=3, pady=3
