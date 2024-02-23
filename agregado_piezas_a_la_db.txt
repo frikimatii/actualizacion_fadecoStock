@@ -62,6 +62,9 @@ agregado para la tabla de piezas_finales_defenitivas
 141	capuchon_motor_eco	  0	plastico	armado_de_caja	   eco	injentor
 142	buje_eje_eco		  54	acero_dulce	armado_de_caja	   eco	torno
 143	rectangulo_plastico_eco	  0	plastico	armado_de_caja	   eco	shop
+144	cable_220_eco		  170	none		pre_armado	   eco	shop
+145	teletubi_doblado_eco	  30	acero_dulce	armado_final	   eco	pintor
+146	tapa_afilador_eco	  0	plastico	armado_final	   eco	injentor
 ________________________________________________________________________________________________________
 
 
@@ -109,6 +112,8 @@ name: piezas_del_fundicion
 85	caja_soldada_eco	0	pintura		eco	pintor
 86	tornillo_teletubi_eco	0	tornillo	eco	augeriado
 87	buje_eje_eco		0	acero_dulce	eco	torno
+88	teletubi_eco		19	tubo		eco	sierra
+89	teletubi_doblado_eco	50	tubo		eco	pintor
 
 ________________________________________________________________
  new table 
@@ -157,3 +162,4 @@ table piezas_retocadas
 ----------------------
 
 caja_soldada_eco	0	pintor
+teletubi_doblado_eco	0	pintor

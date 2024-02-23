@@ -3481,7 +3481,24 @@ def ensamblar_motor_terminado(modelo_seleccionado, cantidad_motores, res):
             "oring": 1,
             "ruleman6000": 1
 
-        }
+        },
+        4: {
+            "polea_grande": 1, 
+            "polea_chica": 1,
+            "tornillo_teletubi_eco_fin": 2,
+            "teclas": 1,
+            "capacitores_eco": 1,
+            "conector_hembra": 1,
+            "cable_corto_eco": 1,
+            "motores_eco": 1,
+            "caja_soldada_eco": 1, 
+            "tapa_plastico_eco": 1,
+            "correa_eco": 1,
+            "capuchon_motor_eco": 1,
+            "buje_eje_eco": 1,
+            "rectangulo_plastico_eco": 1
+            }
+        
     }
 
     # Conectar a la base de datos usando 'with' statement
@@ -3528,16 +3545,22 @@ def ensamblar_motor_terminado(modelo_seleccionado, cantidad_motores, res):
             # Commit para aplicar los cambios
             conn.commit()
 
-            if modelo_seleccionado in [1, 2, 3]:
+            if modelo_seleccionado in [1, 2, 3, 4]:
                 if modelo_seleccionado == 1:
                     nombre_pieza = "cajamotor_final_330"
                     txt = "Motor 330"
+                    
                 elif modelo_seleccionado == 2:
                     nombre_pieza = "cajamotor_final_300"
                     txt = "Motor 300"
+                    
                 elif modelo_seleccionado == 3:
                     nombre_pieza = "cajamotor_final_250"
                     txt = "Motor 250"
+                    
+                elif modelo_seleccionado == 4:
+                    nombre_pieza = "cajamotor_final_eco"
+                    txt = "Motor Eco"
 
                 cursor.execute("UPDATE piezas_finales_defenitivas SET cantidad = cantidad + ? WHERE piezas = ?", (cantidad, nombre_pieza))
 
@@ -3716,6 +3739,26 @@ base_pre_pintada_armada300 = {
     "capacitores": 1,
     "bandeja_300" : 1
 }
+base_pre_inox_armadaeco = {
+    "inox_eco": 1,
+    "aro_numerador":1,
+    "espiral": 1,
+    "perilla_numerador":1,
+    "tapita_perilla":2,
+    "teclas": 1,
+    "patas": 4,
+    "movimientos_final": 1,
+    "eje_rectificado": 1,
+    "resorte_movimiento": 1,
+    "tornillo_guia": 1,
+    "guia_U": 1,
+    "cable_220_eco":1,
+    "varilla_carro_330": 1,
+    "carros_final": 1,
+    "resorte_carro": 2,
+    "cajamotor_final_eco": 1,
+    "rueditas": 4,
+}
 
 
 def mostrar_por_pieza(arbol, modelo, res):
@@ -3828,6 +3871,8 @@ def actualizar_inventario(res, cantidad_maquinas, tipo_maquina, ensamblar=True):
             base_pre_armada = base_pre_pintada_armada330
         elif tipo_maquina == "pintada_300":
             base_pre_armada = base_pre_pintada_armada300
+        elif tipo_maquina == "eco":
+            base_pre_armada = base_pre_inox_armadaeco
         else:
             res.insert(0, f"Tipo de máquina no reconocido: {tipo_maquina}")
             return inventario_piezas, []
@@ -3901,6 +3946,12 @@ def actualizar_inventario(res, cantidad_maquinas, tipo_maquina, ensamblar=True):
                 "UPDATE piezas_finales_defenitivas SET cantidad = cantidad + ? WHERE piezas = 'base_pre_armada300pint'",
                 (cantidad_maquinas,),
             )
+        elif tipo_maquina == "eco":
+            cursor.execute(
+                "UPDATE piezas_finales_defenitivas SET cantidad = cantidad + ? WHERE piezas = 'base_pre_armadaECOinox'",
+                (cantidad_maquinas,),
+            )
+
         else:
             res.insert(0,"Error al actualizar.")
 
@@ -3940,71 +3991,71 @@ def stock_prebases(arbol):
         arbol.insert("", "end", values=dato)
 
 
-def ensamblar_maquinas(cantidad_ensamblar_entry, lista_acciones):
-
-    maquinas_mes = 0
-
-    cantidad_ensamblada = cantidad_ensamblar_entry.get()
-
-    # Validamos que la cantidad ingresada sea un número válido
-    try:
-        cantidad_ensamblada = int(cantidad_ensamblada)
-    except ValueError:
-        lista_acciones.insert(0, "Ingrese una Cantidad Válida")
-        return
-
-    conn = sqlite3.connect("basedatospiezas.db")
-    cursor = conn.cursor()
-    cursor.execute("SELECT Pieza, Cantidad FROM piezas_de_330")
-    stock = cursor.fetchall()
-
-    cantidades_requeridas = {
-        "Base": 1,
-        "Motor": 1,
-        "Teletubi": 1,
-        "Cuchilla": 1,
-        "Vela": 1,
-        "CubreCuchilla": 1,
-        "Cabezal": 1,
-        "Planchada": 1,
-        "Brazo": 1,
-        "Tapa_afilador": 1,
-        "Afilador": 1,
-        "Patas": 4
-    }
-
-    for pieza, cantidad in stock:
-        if pieza in cantidades_requeridas:
-            cantidades_requerida = cantidades_requeridas[pieza] * \
-                cantidad_ensamblada
-            if cantidad < cantidades_requerida:
-                lista_acciones.insert(
-                    0, "No hay suficientes {pieza} en el stock para ensamblar {cantidad_ensamblada} máquinas.")
-                conn.close()
-                return
-
-    # Si hay suficientes piezas, ensamblar las máquinas y actualizar las cantidades en la base de datos
-    for pieza, cantidad in stock:
-        if pieza in cantidades_requeridas:
-            cantidad_requerida = cantidades_requeridas[pieza] * \
-                cantidad_ensamblada
-            nueva_cantidad = cantidad - cantidad_requerida
-            cursor.execute(
-                "UPDATE piezas_de_330 SET Cantidad=? WHERE Pieza=?", (nueva_cantidad, pieza))
-
-    # Actualizar el contador de máquinas ensambladas
-
-    maquinas_mes += cantidad_ensamblada
-
-    # Crear una etiqueta para mostrar la cantidad total de máquinas ensambladas en el mes
-    lista_acciones.insert(0, "Maquinas Terminadas en el mes: {maquinas_mes}")
-
-    # Mostrar la cantidad total de máquinas ensambladas
-    lista_acciones.insert( 0, "Se Armaron {cantidad_ensamblada} máquinas \h Total del mes: {maquinas_mes}")
-
-    conn.commit()
-    conn.close()
-    mostrar_datos()
+#def ensamblar_maquinas(cantidad_ensamblar_entry, lista_acciones):
+#
+#    maquinas_mes = 0
+#
+#    cantidad_ensamblada = cantidad_ensamblar_entry.get()
+#
+#    # Validamos que la cantidad ingresada sea un número válido
+#    try:
+#        cantidad_ensamblada = int(cantidad_ensamblada)
+#    except ValueError:
+#        lista_acciones.insert(0, "Ingrese una Cantidad Válida")
+#        return
+#
+#    conn = sqlite3.connect("basedatospiezas.db")
+#    cursor = conn.cursor()
+#    cursor.execute("SELECT Pieza, Cantidad FROM piezas_de_330")
+#    stock = cursor.fetchall()
+#
+#    cantidades_requeridas = {
+#        "Base": 1,
+#        "Motor": 1,
+#        "Teletubi": 1,
+#        "Cuchilla": 1,
+#        "Vela": 1,
+#        "CubreCuchilla": 1,
+#        "Cabezal": 1,
+#        "Planchada": 1,
+#        "Brazo": 1,
+#        "Tapa_afilador": 1,
+#        "Afilador": 1,
+#        "Patas": 4
+#    }
+#
+#    for pieza, cantidad in stock:
+#        if pieza in cantidades_requeridas:
+#            cantidades_requerida = cantidades_requeridas[pieza] * \
+#                cantidad_ensamblada
+#            if cantidad < cantidades_requerida:
+#                lista_acciones.insert(
+#                    0, "No hay suficientes {pieza} en el stock para ensamblar {cantidad_ensamblada} máquinas.")
+#                conn.close()
+#                return
+#
+#    # Si hay suficientes piezas, ensamblar las máquinas y actualizar las cantidades en la base de datos
+#    for pieza, cantidad in stock:
+#        if pieza in cantidades_requeridas:
+#            cantidad_requerida = cantidades_requeridas[pieza] * \
+#                cantidad_ensamblada
+#            nueva_cantidad = cantidad - cantidad_requerida
+#            cursor.execute(
+#                "UPDATE piezas_de_330 SET Cantidad=? WHERE Pieza=?", (nueva_cantidad, pieza))
+#
+#    # Actualizar el contador de máquinas ensambladas
+#
+#    maquinas_mes += cantidad_ensamblada
+#
+#    # Crear una etiqueta para mostrar la cantidad total de máquinas ensambladas en el mes
+#    lista_acciones.insert(0, "Maquinas Terminadas en el mes: {maquinas_mes}")
+#
+#    # Mostrar la cantidad total de máquinas ensambladas
+#    lista_acciones.insert( 0, "Se Armaron {cantidad_ensamblada} máquinas \h Total del mes: {maquinas_mes}")
+#
+#    conn.commit()
+#    conn.close()
+#    mostrar_datos()
 
 def bases_terminados(arbol, res):
     try:
@@ -4461,6 +4512,33 @@ p300 = {
     "fadeco_300_3estrella": 1
 }
 
+iEco = {
+    "brazo_330":1,
+    "cubrecuchilla_330": 1,
+    "velero": 1,
+    "perilla_brazo": 1,
+    "cabezal_inox": 1,
+    "teletubi_doblado_eco": 1,
+    "cuchilla_330": 1,
+    "vela_final_330": 1,
+    "cuadrado_reguladore_final": 1,
+    "planchada_final_330":1,
+    "varilla_brazo_330":1,
+    "resorte_brazo":1,
+    "tapa_afilador_eco":1,
+    "pipas":2,
+    "tubo_manija": 1,
+    "afilador_final":1,
+    "perilla_cubrecuilla":2,
+    "perilla_afilador": 1,
+    "base_afilador_250":1,
+    "base_pre_armadaECOinox": 1,
+    "piedra_afilador": 1,
+    "pinche_lateral": 1,
+    "pinche_frontal":1,
+#       
+}
+
 
 def armado_de_maquinas(cantidad_maquinas, tipo_seleccionado, result):
     conn = sqlite3.connect("basedatospiezas.db")
@@ -4479,6 +4557,7 @@ def armado_de_maquinas(cantidad_maquinas, tipo_seleccionado, result):
         'inox_250': i250,
         'pintada_330': p330,
         'pintada_300': p300,
+        'eco' : iEco,
         # ... (add more types as needed)
     }
 
@@ -4586,6 +4665,8 @@ def maquinas_dis(modelo_maquina):
         piezas_necesarias = p330
     elif modelo_maquina == "pint 300":
         piezas_necesarias = p300
+    elif modelo_maquina == "inox eco":
+        piezas_necesarias = iEco
     
     cantidad_minima = float('inf')
     for pieza, cantidad_necesaria in piezas_necesarias.items():
@@ -4629,7 +4710,8 @@ def verificar_posibilidad_maquina_teminada(cantidad_deseada, modelo_seleccionado
         "inoxidable 300": i300,
         "inoxidable 250": i250,
         "pintada 330": p330,
-        "pintada 300": p300
+        "pintada 300": p300,
+        "inoxidable eco": iEco
     }
 
     tipo_de_modelo = maquina_final.get(modelo_seleccionado)
@@ -4730,6 +4812,22 @@ motor_250 = {
     "ruleman6000": 1
 
 }
+motor_eco = {
+    "polea_grande": 1, 
+    "polea_chica": 1,
+    "tornillo_teletubi_eco_fin": 2,
+    "capacitores_eco": 1,
+    "conector_hembra": 1,
+    "cable_corto_eco": 1,
+    "motores_eco": 1,
+    "caja_soldada_eco": 1, 
+    "tapa_plastico_eco": 1,
+    "correa_eco": 1,
+    "capuchon_motor_eco": 1,
+
+    "buje_eje_eco": 1,
+    "rectangulo_plastico_eco": 1
+}
 
 
    
@@ -4738,7 +4836,7 @@ def contar_motores_disponibles(modelo_motor):
         conn = sqlite3.connect("basedatospiezas.db")
         cursor = conn.cursor()
         cursor.execute(
-            "SELECT piezas, cantidad FROM piezas_finales_defenitivas WHERE sector = 'armado_de_caja'"
+            "SELECT piezas, cantidad FROM piezas_finales_defenitivas WHERE (sector = 'pre_armado' OR sector = 'armado_de_caja') OR piezas = 'teclas'"
         )
         datos = cursor.fetchall()
     except sqlite3.Error as e:
@@ -4755,6 +4853,8 @@ def contar_motores_disponibles(modelo_motor):
         piezas_necesarias = motor_300
     elif modelo_motor == "250":
         piezas_necesarias = motor_250
+    elif modelo_motor == "eco":
+        piezas_necesarias = motor_eco
 
     
     # Verificar la cantidad mínima de piezas necesarias para un afilador
@@ -4802,7 +4902,8 @@ def verificar_posibilidad_construccion_motor(cantidad_deseada, modelo_selecciona
     bases_prearmadas = {
         "330": motor_330,
         "300": motor_300,
-        "250": motor_250
+        "250": motor_250,
+        "eco": motor_eco
     }
 
     tipo_de_modelo = bases_prearmadas.get(modelo_seleccionado)
@@ -4889,6 +4990,8 @@ def stock_de_prearmado(modelo):
         tipo_de_modelo = base_pre_pintada_armada330
     elif modelo == "pintada 300":
         tipo_de_modelo = base_pre_pintada_armada300
+    elif modelo == "inoxidable eco":
+        tipo_de_modelo = base_pre_inox_armadaeco
 
     cantidad_minima = float('inf')
     for pieza, cantidad_necesaria in tipo_de_modelo.items():
@@ -4932,6 +5035,7 @@ def verificar_posibilidad_construccion(cantidad_deseada, modelo_seleccionado):
         "inoxidable 250": base_pre_inox_armada250,
         "pintada 330": base_pre_pintada_armada330,
         "pintada 300": base_pre_pintada_armada300,
+        "inoxidable eco" : base_pre_inox_armadaeco,
     }
 
     tipo_de_modelo = bases_prearmadas.get(modelo_seleccionado)
@@ -5148,6 +5252,7 @@ def consultar_afiladores(entry_cantidad, tabla_consultas, lista_acciones):
 
 #&@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ suma total de mquinas @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@###@#@#@##
 #lo que me va a dar de comer 
+
 def verificar_disponibilidad_pedido(pedido):
     try:
         conn = sqlite3.connect("basedatospiezas.db")
@@ -5201,12 +5306,13 @@ def obtener_base_piezas_modelo(modelo):
         "inoxidable 250": i250,
         "pintada 330": p330,
         "pintada 300": p300,
+        "inoxidable eco": iEco,
     }
 
     return bases_prearmadas.get(modelo)
 
 
-def on_averiguar_click(entry_i330, entry_i300, entry_i250, entry_p330, entry_p300, tree, listbox):
+def on_averiguar_click(entry_i330, entry_i300, entry_i250, entry_p330, entry_p300, entry_ieco, tree, listbox):
     for item in tree.get_children():
         tree.delete(item)
         
@@ -5216,6 +5322,7 @@ def on_averiguar_click(entry_i330, entry_i300, entry_i250, entry_p330, entry_p30
         "inoxidable 300": entry_i300.get(),
         "inoxidable 250": entry_i250.get(),
         "pintada 330": entry_p330.get(),
+        "inoxidable eco": entry_ieco.get(),
         "pintada 300": entry_p300.get(),
     }
 
@@ -5231,9 +5338,14 @@ def on_averiguar_click(entry_i330, entry_i300, entry_i250, entry_p330, entry_p30
 
 #)))))))))))))))))))))))))))))))))))) fin de mes )))))))))))))))))))))))))))))))))))))))))))))))))))))))
 
-
 def actualizar_cantidad_a_cero(label, meses_opcional, listbox):
     try:
+        # Mostrar mensaje de confirmación
+        confirmacion = messagebox.askyesno("Confirmar", "¿Estás seguro de que deseas cerrar el Mes?")
+        if not confirmacion:
+            listbox.insert(0, "Operación cancelada.")
+            return
+
         conn = sqlite3.connect("basedatospiezas.db")
         cursor = conn.cursor()
 
@@ -5242,9 +5354,9 @@ def actualizar_cantidad_a_cero(label, meses_opcional, listbox):
         total_anterior = cursor.fetchone()[0]
 
         # Actualizar el texto del label
-        nuevo_texto = f"En {meses_opcional.get()} Se armo: {total_anterior} maquinas"
+        nuevo_texto = f"En {meses_opcional.get()} Se armaron: {total_anterior} maquinas"
         label.config(text=nuevo_texto)
-        listbox.insert(0, "Base de Datos Actualiza... ")
+        listbox.insert(0, "Base de Datos Actualizada... ")
 
         # Guardar el texto en un archivo de texto
         with open("registro_maquinas.txt", "a") as archivo:
@@ -5255,22 +5367,21 @@ def actualizar_cantidad_a_cero(label, meses_opcional, listbox):
 
         # Confirmar los cambios
         conn.commit()
-        print("Cantidad actualizada a cero correctamente.")
+
+        messagebox.showinfo("Operación completada", f"{nuevo_texto}")
 
     except sqlite3.Error as e:
         print(f"Error al actualizar la cantidad a cero: {e}")
+        messagebox.showerror("Error", f"Hubo un error al actualizar la cantidad a cero: {e}")
 
     finally:
         conn.close()
         
 def abrir_archivo_registro():
     try:
-        # Abrir el archivo de registro con el programa predeterminado
-        subprocess.run(["notepad.exe", "registro_maquinas.txt"])
+        subprocess.run(["start", '', "registro_maquinas.txt"], shell=True)
     except Exception as e:
-        print(f"Error al abrir el archivo de registro: {e}")
-        
-       
+        print(f"Error al abrir el archivo de registro de máquinas: {e}")
         
 #-------------------------------------------------------------------------
 
@@ -5728,3 +5839,50 @@ def eliminar_pieza(
             conn.close()
             
         entrada_cantidad_eliminar.delete(0, 'end')
+
+
+
+def mostrar_piezas_pre_armado(piezas, tree1, subtitulo):
+
+    conn = sqlite3.connect("basedatospiezas.db")
+    cursor = conn.cursor()
+
+    # Utiliza marcadores de posición para evitar problemas de sintaxis y seguridad
+    placeholders = ",".join(["?" for _ in piezas])
+    
+    # Consulta SQL con marcadores de posición
+    query = f"SELECT piezas, cantidad FROM piezas_finales_defenitivas WHERE sector = 'pre_armado' AND  piezas IN ({placeholders})  "
+    
+    cursor.execute(query, piezas)
+    datos = cursor.fetchall()
+    conn.close()
+    for item in tree1.get_children():
+        tree1.delete(item)
+    for dato in datos:
+        tree1.insert("", "end", values=dato)
+
+    subtitulo_text = "Stock Calcomania"
+    subtitulo.config(text=subtitulo_text)
+
+
+import csv
+
+def guardar_datos_csv(treeview, nombre_archivo):
+    try:
+        with open(nombre_archivo, "w", newline='') as archivo:
+            writer = csv.writer(archivo)
+            writer.writerow(["Pieza", "Cantidad", "Modelo"])
+            for fila in treeview.get_children():
+                datos_fila = treeview.item(fila)["values"]
+                writer.writerow(datos_fila)
+                
+        abrir_archivo_registro_cvs(nombre_archivo)
+        
+    except Exception as e:
+        print(f"Error al guardar datos en el archivo CSV: {e}")
+
+def abrir_archivo_registro_cvs(nombre_archivo):
+    try:
+        subprocess.run(["start", '', nombre_archivo], shell=True)
+    except Exception as e:
+        print(f"Error al abrir el archivo de registro: {e}")

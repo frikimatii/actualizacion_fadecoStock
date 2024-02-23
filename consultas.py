@@ -1,7 +1,7 @@
 
 import tkinter as tk
 from tkinter import ttk
-from funciones import sort_column, contar_afiladores_disponibles, consultar_afiladores, actualizar_muestra, actualizar_muestra_prearmado, consultar_piezas_sector, actualizar_muestra_motores, consultar_piezas_sector_motor, mostrar_maquinas_disponibles, consultar_maquinas_final, on_averiguar_click,  actualizar_cantidad_a_cero,  abrir_archivo_registro ,sort_column_alpha
+from funciones import sort_column, contar_afiladores_disponibles, consultar_afiladores, actualizar_muestra, actualizar_muestra_prearmado, consultar_piezas_sector, actualizar_muestra_motores, consultar_piezas_sector_motor, mostrar_maquinas_disponibles, consultar_maquinas_final, on_averiguar_click,  actualizar_cantidad_a_cero,  abrir_archivo_registro ,sort_column_alpha, guardar_datos_csv
 
 cantidad_piezas_afiladore = {
     "capuchon_afilador": 2,
@@ -174,8 +174,8 @@ texto_con_salto_motores = "Preguntar cuantos motores se pueden armar \n         
 texto_prearmado = "preguntar cuantas bases pre Armadas se pueden armar\n                    ingrese tipo y cantidad"
 texto_afiladores = "preguntar cuantos afiladores se pueden armar EN FABRICA\n                           ingrese la cantidad"
 
-tipo_motor = ("330", "300", "250")
-tipo_maquina = ("inoxidable 330", "inoxidable 300", "inoxidable 250", "pintada 330", "pintada 300")
+tipo_motor = ("330", "300", "250", "eco")
+tipo_maquina = ("inoxidable 330", "inoxidable 300", "inoxidable 250", "pintada 330", "pintada 300", "inoxidable eco")
 
 base_pre_inox_armada330 = {
     "inox_330": 1,
@@ -385,6 +385,21 @@ def consultorio(notebook):
 
     pint_300 = ttk.Label(buttons, text="P300", style="WhiteOnRed.TLabel", font=("Arial", 8, "bold"))
     pint_300.grid(row=3, column=1,pady=1 )
+
+    tk.Button(
+        buttons, 
+        text="Inox Eco", 
+        bg="#ff6c00",  # Color de fondo
+        fg="white",    # Color del texto
+        padx=4,
+        pady=1,
+        font=('Helvetica', 8, 'bold'),
+        relief=tk.GROOVE,  # Tipo de relieve del botón
+        command= lambda: mostrar_maquinas_disponibles("inox eco", inox_eco)
+        ).grid(row=2, column=2, padx=1, pady=1)
+    
+    inox_eco = ttk.Label(buttons, text="IEco", style="WhiteOnRed.TLabel", font=("Arial", 8, "bold"))
+    inox_eco.grid(row=3, column=2,pady=1 )
     
     
 #__________________________________________________________________________________________________________    
@@ -459,6 +474,18 @@ def consultorio(notebook):
         relief=tk.GROOVE,  # Tipo de relieve del botón
         command= lambda: actualizar_muestra_motores("250", motor250)
         ).grid(row=0, column=2, padx=1, pady=1)
+
+    tk.Button(
+        botones, 
+        text="250", 
+        bg="#ff6c00",  # Color de fondo
+        fg="white",    # Color del texto
+        padx=4,
+        pady=1,
+        font=('Helvetica', 8, 'bold'),
+        relief=tk.GROOVE,  # Tipo de relieve del botón
+        command= lambda: actualizar_muestra_motores("eco", motoreco)
+        ).grid(row=0, column=3, padx=1, pady=1)
     
     motor330 = ttk.Label(botones, text="330", style="WhiteOnRed.TLabel", font=("Arial", 8, "bold"))
     motor330.grid(row=1, column=0,pady=1 )
@@ -466,6 +493,8 @@ def consultorio(notebook):
     motor300.grid(row=1, column=1,pady=1 )
     motor250 = ttk.Label(botones, text="250", style="WhiteOnRed.TLabel", font=("Arial", 8, "bold"))
     motor250.grid(row=1, column=2,pady=1 )
+    motoreco = ttk.Label(botones, text="Eco", style="WhiteOnRed.TLabel", font=("Arial", 8, "bold"))
+    motoreco.grid(row=1, column=3,pady=1 )
 
 #__________________________________________________________________________________________________________    
 
@@ -582,7 +611,20 @@ def consultorio(notebook):
     
     maquina_p300 = ttk.Label(botonera, text="Pint 300", style="WhiteOnRed.TLabel", font=("Arial", 9, "bold"))
     maquina_p300.grid(row=3, column=1,padx=1, pady=1)    
+
+    tk.Button(
+        botonera, 
+        text="Inox Eco", 
+        bg="#ff6c00",  # Color de fondo
+        fg="white",    # Color del texto
+        padx=4,
+        pady=1,
+        font=('Helvetica', 8, 'bold'),
+        command=lambda: actualizar_muestra_prearmado("inoxidable eco", maquina_Ieco),
+        relief=tk.GROOVE,).grid(row=2, column=2, padx=1, pady=1)
     
+    maquina_Ieco = ttk.Label(botonera, text="Inox eco", style="WhiteOnRed.TLabel", font=("Arial", 9, "bold"))
+    maquina_Ieco.grid(row=3, column=2,padx=1, pady=1)   
     
     
 
@@ -649,7 +691,8 @@ def consultorio(notebook):
     ttk.Label(consulta_pedidos, text="Inoxidable 250", style="WhiteOnRed.TLabel", font=("Arial", 12, "bold")).grid(row=4, column=0,padx=1, pady=1, sticky="se")
     ttk.Label(consulta_pedidos, text="Pintada 330", style="WhiteOnRed.TLabel", font=("Arial", 12, "bold")).grid(row=5, column=0,padx=1, pady=1, sticky="se")
     ttk.Label(consulta_pedidos, text="Pintada 300", style="WhiteOnRed.TLabel", font=("Arial", 12, "bold")).grid(row=6, column=0,padx=1, pady=1, sticky="se")
-    
+    ttk.Label(consulta_pedidos, text="Inoxidable Eco", style="WhiteOnRed.TLabel", font=("Arial", 12, "bold")).grid(row=7, column=0,padx=1, pady=1, sticky="se")
+
     
     entry_i330 = ttk.Entry(consulta_pedidos, width=7)
     entry_i330.grid(row=2, column=1, sticky="nw")
@@ -666,6 +709,9 @@ def consultorio(notebook):
     entry_p300 = ttk.Entry(consulta_pedidos, width=7)
     entry_p300.grid(row=6, column=1, sticky="nw")
 
+    entry_ieco = ttk.Entry(consulta_pedidos, width=7)
+    entry_ieco.grid(row=7, column=1, sticky="nw")
+    
     resultado_final= tk.Button(
         consulta_pedidos,
         text="Averiguar",
@@ -674,12 +720,15 @@ def consultorio(notebook):
         padx=7,
         pady=2,
         font=('Helvetica', 9, "bold"),
-        command=lambda: on_averiguar_click(entry_i330, entry_i300, entry_i250, entry_p330, entry_p300, tabla_consultas, lista_acciones) 
+        command=lambda: on_averiguar_click(entry_i330, entry_i300, entry_i250, entry_p330, entry_p300, entry_ieco, tabla_consultas, lista_acciones) 
 
     )
-    resultado_final.grid(row=7, column=0 , columnspan=2,padx=2, pady=2)
+    resultado_final.grid(row=8, column=0 , columnspan=2,padx=2, pady=2)
+
+    ttk.Button(consulta_pedidos, text="Abrir Tabla", command= lambda: guardar_datos_csv(tabla_consultas, "datos_treeview.csv")).grid(row=9, column=0, columnspan=2, padx=4, pady=4)
+
     
-    ttk.Separator(consulta_pedidos, orient="horizontal").grid(row=8, column=0, columnspan=2, sticky="ew", padx=3, pady=3)
+    ttk.Separator(consulta_pedidos, orient="horizontal").grid(row=10, column=0, columnspan=2, sticky="ew", padx=3, pady=3)
 
     finde_mes = ttk.Frame(box4, style='Pestania.TFrame')
     finde_mes.grid(row=1, column=0)
@@ -717,3 +766,5 @@ def consultorio(notebook):
         command=lambda: abrir_archivo_registro()
     )
     mostrar_registro.grid(row=4, column=0, columnspan=2)
+
+

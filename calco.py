@@ -98,7 +98,7 @@ caja_eco = {
     "polea_grande": 1, 
     "polea_chica": 1,
     "tornillo_teletubi_eco": 2,
-    "tecla": 1,
+    "teclas": 1,
     "capacitores_eco": 1,
     "conector_hembra": 1,
     "cable_corto_eco": 1,
@@ -151,7 +151,7 @@ maquina_final_eco = {
     "perilla_cubrecuilla":2,
     "perilla_afilador": 1,
     "base_afilador_250":1,
-    "base_pre_armadaECOinox": 1,## 
+    "base_pre_armadaECOinox": 1,
     "piedra_afilador": 1,
     "pinche_lateral": 1,
     "pinche_frontal":1,

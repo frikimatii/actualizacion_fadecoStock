@@ -13,7 +13,7 @@ from consultas import consultorio
 root = tk.Tk()
 root.title("Control De Stock Fadeco 2024-25")
 root.iconbitmap("C:/Fadeco/img/FLogo.ico")
-root.geometry("1230x710")
+root.geometry("1250x650")
 notebook = ttk.Notebook(root)
 notebook.grid(row=0, column=0)
 

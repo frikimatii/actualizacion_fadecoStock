@@ -81,47 +81,67 @@ piezas_delete_prearmado = [
 ]
 piezas_delete_prearmado.sort()
 
-tipos_de_maquinas = ["inox_330", "inox_300", "inox_250", "pintada_330", "pintada_300"]
+tipos_de_maquinas = ["inox_330", "inox_300", "inox_250", "pintada_330", "pintada_300", "eco"]
+
+motores_250 = (
+    "caja_torneado_250",
+    "corona_250",
+    "eje_250",
+    "manchon_250",
+    "motores250_220w",
+    "oring",
+    "ruleman_6004",
+    "ruleman_6204",
+    "ruleman6000",
+    "seguer",
+    "sinfin"
+)
+
+motores_300 = (
+    "caja_torneado_300",
+    "corona_300",
+    "eje",
+    "manchon",
+    "motores_220w",
+    "oring",
+    "ruleman_6005",
+    "ruleman_6205",
+    "ruleman6000",
+    "seguer",
+    "sinfin"
+)
 
 motores_330 = (
     "caja_torneado_330",
-    "eje",
-    "manchon",
-    "ruleman_6005",
-    "ruleman_6205",
     "corona_330",
-    "seguer",
-    "sinfin",
-    "motores_220w",
-    "oring",
-    "ruleman6000"
-)
-motores_300 = (
-    "caja_torneado_300",
     "eje",
     "manchon",
-    "ruleman_6005",
-    "ruleman_6205",
-    "corona_300",
-    "seguer",
-    "sinfin",
     "motores_220w",
     "oring",
-    "ruleman6000"
-)
-motores_250 = (
-    "caja_torneado_250",
-    "eje_250",
-    "manchon_250",
-    "ruleman_6004",
-    "ruleman_6204",
-    "corona_250",
+    "ruleman_6005",
+    "ruleman_6205",
+    "ruleman6000",
     "seguer",
-    "sinfin",
-    "motores250_220w",
-    "oring",
-    "ruleman6000"
+    "sinfin"
 )
+
+motores_eco = {
+    "cable_corto_eco",
+    "caja_soldada_eco",
+    "capacitores_eco",
+    "capuchon_motor_eco",
+    "conector_hembra",
+    "correa_eco",
+    "buje_eje_eco",
+    "motores_eco",
+    "polea_chica",
+    "polea_grande",
+    "rectangulo_plastico_eco",
+    "tapa_plastico_eco",
+    "teclas",
+    "tornillo_teletubi_eco_fin"
+}
+
 
 cantidad_piezas_afiladore = {
     "capuchon_afilador": 2,
@@ -268,6 +288,32 @@ p300pieza = {
     "pinche_frontal",
     "pinche_lateral" 
 }
+
+iEcopiezas = [
+    "brazo_330",
+    "cubrecuchilla_330",
+    "velero",
+    "perilla_brazo",
+    "cabezal_inox",
+    "teletubi_doblado_eco",
+    "cuchilla_330",
+    "vela_final_330",
+    "cuadrado_reguladore_final",
+    "planchada_final_330",
+    "varilla_brazo_330",
+    "resorte_brazo",
+    "tapa_afilador_eco",
+    "pipas",
+    "tubo_manija",
+    "afilador_final",
+    "perilla_cubrecuilla",
+    "perilla_afilador",
+    "base_afilador_250",
+    "base_pre_armadaECOinox",
+    "piedra_afilador",
+    "pinche_lateral",
+    "pinche_frontal"
+]
 
 piezas_armado_final_delete = [
     "afilador_final",
@@ -428,12 +474,13 @@ def seccion_armado(notebook):
     botonera_cajas.grid(row=5, column=0, columnspan=2)
 
     ttk.Label(botonera_cajas, text="Piezas por modelo", style="WhiteOnRed.TLabel").grid(row=0, column=0, columnspan=3)
-    ttk.Button(botonera_cajas ,text="330", command=lambda: mostrar_piezas_modelo(arbol, motores_330, res, "330")).grid(row=1, column=0, pady=1, padx=1)
-    ttk.Button(botonera_cajas, text="300", command=lambda: mostrar_piezas_modelo(arbol, motores_300, res, "300")).grid(row=1, column=1, pady=1, padx=1)
-    ttk.Button(botonera_cajas, text="250", command=lambda: mostrar_piezas_modelo(arbol, motores_250, res, "250")).grid(row=1, column=2, pady=1, padx=1)
+    ttk.Button(botonera_cajas ,text="330", command=lambda: mostrar_piezas_modelo(arbol, motores_330, res, "330")).grid(row=1, column=0, pady=5, padx=5)
+    ttk.Button(botonera_cajas, text="300", command=lambda: mostrar_piezas_modelo(arbol, motores_300, res, "300")).grid(row=1, column=1, pady=5, padx=5)
+    ttk.Button(botonera_cajas, text="250", command=lambda: mostrar_piezas_modelo(arbol, motores_250, res, "250")).grid(row=2, column=0, pady=5, padx=5)
+    ttk.Button(botonera_cajas, text="eco", command=lambda: mostrar_piezas_modelo(arbol, motores_eco, res, "eco")).grid(row=2, column=1, pady=5, padx=5)
 
     ttk.Separator(botonera_cajas, orient="horizontal", style="Separador2.TSeparator").grid(
-        row=2, column=0, sticky="ew", columnspan=3, pady=5, padx=5)
+        row=3, column=0, sticky="ew", columnspan=3, pady=5, padx=5)
 
     ttk.Label(caja2, text="Motores Armados", style="WhiteOnRed.TLabel", font=("Arial", 14, "bold")).grid(row=7, column=0, columnspan=2)
 
@@ -443,16 +490,19 @@ def seccion_armado(notebook):
     modelo = tk.IntVar()
     modelo.set(1)
     ttk.Label(checkbox, text="Modelo", style="WhiteOnRed.TLabel").grid(row=0, column=0, columnspan=3)
-    tk.Radiobutton(checkbox, text="330", variable=modelo,
-                   value=1, background='#192965', foreground='#9fa0a5').grid(row=1, column=0)
-    tk.Radiobutton(checkbox, text="300", variable=modelo,
-                   value=2, background='#192965', foreground='#9fa0a5').grid(row=1, column=1)
-    tk.Radiobutton(checkbox, text="250", variable=modelo,
-                   value=3, background='#192965', foreground='#9fa0a5').grid(row=1, column=2)
+    tk.Radiobutton(checkbox, text="330", variable=modelo,selectcolor='#2f3542',
+                   value=1, background='#192965', foreground='#fff',borderwidth=3, relief="raised").grid(row=1, column=0, padx=2, pady=2)
+    tk.Radiobutton(checkbox, text="300", variable=modelo,selectcolor='#2f3542',
+                   value=2, background='#192965', foreground='#fff',borderwidth=3, relief="raised").grid(row=1, column=1, padx=2, pady=2)
+    tk.Radiobutton(checkbox, text="250", variable=modelo,selectcolor='#2f3542',
+                   value=3, background='#192965', foreground='#fff',borderwidth=3, relief="raised").grid(row=1, column=2, padx=2, pady=2)
+    tk.Radiobutton(checkbox, text="Eco", variable=modelo, selectcolor='#2f3542',
+                   value=4, background='#192965', foreground='#fff',borderwidth=3, relief="raised").grid(row=1, column=3, padx=2, pady=2)
+
 
     ttk.Label(caja2, text="Cantidad", style="WhiteOnRed.TLabel").grid(row=9, column=0,columnspan=2)
     cantidad_motores = tk.Entry(caja2, width=10)
-    cantidad_motores.grid(row=10, column=0, columnspan=2, pady=1)
+    cantidad_motores.grid(row=10, column=0, columnspan=2, pady=3, padx=3)
     
     def enviar():
         # Obtener el valor actual del objeto IntVar (modelo)
@@ -469,7 +519,7 @@ def seccion_armado(notebook):
         padx=4,
         pady=1,
         font=('Helvetica', 8, "bold"),
-        command=enviar).grid(row=11, column=0, columnspan=2)
+        command=enviar).grid(row=11, column=0, columnspan=2, padx=5, pady=5)
 
     ttk.Separator(caja2, orient="horizontal", style="Separador2.TSeparator").grid(
         row=12, column=0, sticky="ew", columnspan=2, pady=3, padx=3)
@@ -498,7 +548,7 @@ def seccion_armado(notebook):
 
     ttk.Label(caja2, text="Cantidad", style="WhiteOnRed.TLabel").grid(row=19, column=0)
     cantidad_delete = ttk.Entry(caja2, width=10)
-    cantidad_delete.grid(row=19, column=1)
+    cantidad_delete.grid(row=19, column=1, padx=4, pady=4)
 
     #eliminar_piez(combox, cantida list tabla , funcion , arbol)
 
@@ -510,13 +560,13 @@ def seccion_armado(notebook):
         padx=4,
         pady=1,
         font=('Helvetica', 8, "bold"),
-        command=lambda: eliminar_pieza(pieza_del, cantidad_delete, result, "piezas_finales_defenitivas", mostrar_datos, arbol ,info="")).grid(row=20, column=1)
+        command=lambda: eliminar_pieza(pieza_del, cantidad_delete, result, "piezas_finales_defenitivas", mostrar_datos, arbol ,info="")).grid(row=20, column=1, padx=2, pady=2)
 
 
     ttk.Separator(caja2, orient="horizontal", style="Separador2.TSeparator").grid(
         row=21, column=0, sticky="ew", columnspan=2, pady=3, padx=3)
     
-    #------------------------Afilador ----------------------------
+
     caja3 = ttk.Frame(pestania, style='Color.TFrame')
     caja3.grid(row=2, column=2, sticky="n")
 
@@ -547,7 +597,8 @@ def seccion_armado(notebook):
     botonera_prearmado.grid(row=4, column=0, columnspan=2)
     ttk.Button(botonera_prearmado, text="330", command=lambda: mostrar_por_pieza(arbol,"330",res)).grid(row=0, column=0, pady=5,padx=5)
     ttk.Button(botonera_prearmado, text="300", command=lambda: mostrar_por_pieza(arbol,"300", res)).grid(row=0, column=1, pady=5,padx=5)
-    ttk.Button(botonera_prearmado, text="250", command=lambda: mostrar_por_pieza(arbol,"250", res)).grid(row=0, column=2, pady=5,padx=5)
+    ttk.Button(botonera_prearmado, text="250", command=lambda: mostrar_por_pieza(arbol,"250", res)).grid(row=1, column=0, pady=5,padx=5)
+    ttk.Button(botonera_prearmado, text="Eco", command=lambda: mostrar_por_pieza(arbol,"eco", res)).grid(row=1, column=1, pady=5,padx=5)
 
     ttk.Separator(caja4, orient="horizontal", style="Separador2.TSeparator").grid(
         row=5, column=0, sticky="ew", columnspan=2, pady=3, padx=3)
@@ -560,7 +611,7 @@ def seccion_armado(notebook):
 
     ttk.Label(caja4, text="Cantidad", style="WhiteOnRed.TLabel").grid(row=8, column=0)
     cantidad_prearmada = tk.Entry(caja4, width=10)
-    cantidad_prearmada.grid(row=8, column=1, pady=1)
+    cantidad_prearmada.grid(row=8, column=1, pady=4, padx=4)
 
     tk.Button(
         caja4, 
@@ -599,7 +650,7 @@ def seccion_armado(notebook):
 
     ttk.Label(caja4, text="Cantidad", style="WhiteOnRed.TLabel").grid(row=17, column=0)
     cantidad_prearmado_delete = tk.Entry(caja4, width=10)
-    cantidad_prearmado_delete.grid(row=17, column=1, pady=1)
+    cantidad_prearmado_delete.grid(row=17, column=1, pady=5, padx=5)
 
     tk.Button(
         caja4,
@@ -653,15 +704,16 @@ def seccion_armado(notebook):
 
     ttk.Label(botonera_armadofinal, style="WhiteOnRed.TLabel",font=("Arial",12,"bold"), text="Piezas por modelo").grid(row=0, column=0, columnspan=3)
     
-    ttk.Button(botonera_armadofinal, text="Inox 330", command=lambda: mostrar_piezas_i330(arbol, res, i330pieza, "Inox 330")).grid(row=1, column=0, pady=1, padx=1)
-    ttk.Button(botonera_armadofinal, text="Inox 300", command=lambda: mostrar_piezas_i330(arbol, res, i300pieza, "Inox 300")).grid(row=1, column=1, pady=1, padx=1)
-    ttk.Button(botonera_armadofinal, text="Inox 250", command=lambda: mostrar_piezas_i330(arbol, res, i250pieza, "Inox 250")).grid(row=1, column=2, pady=1, padx=1)
+    ttk.Button(botonera_armadofinal, text="Inox 330", command=lambda: mostrar_piezas_i330(arbol, res, i330pieza, "Inox 330")).grid(row=1, column=0, pady=5, padx=5)
+    ttk.Button(botonera_armadofinal, text="Inox 300", command=lambda: mostrar_piezas_i330(arbol, res, i300pieza, "Inox 300")).grid(row=1, column=1, pady=5, padx=5)
+    ttk.Button(botonera_armadofinal, text="Inox 250", command=lambda: mostrar_piezas_i330(arbol, res, i250pieza, "Inox 250")).grid(row=1, column=2, pady=5, padx=5)
 
-    ttk.Button(botonera_armadofinal, text="Pintada 330", command=lambda: mostrar_piezas_i330(arbol, res, p330pieza, "Pint 330")).grid(row=2, column=0, pady=1, padx=1)
-    ttk.Button(botonera_armadofinal, text="Pintada 300", command=lambda: mostrar_piezas_i330(arbol, res, p300pieza, "Pint 300")).grid(row=2, column=1, pady=1, padx=1)
+    ttk.Button(botonera_armadofinal, text="Pintada 330", command=lambda: mostrar_piezas_i330(arbol, res, p330pieza, "Pint 330")).grid(row=2, column=0, pady=5, padx=5)
+    ttk.Button(botonera_armadofinal, text="Pintada 300", command=lambda: mostrar_piezas_i330(arbol, res, p300pieza, "Pint 300")).grid(row=2, column=1, pady=5, padx=5)
+    ttk.Button(botonera_armadofinal, text="ECO", command=lambda: mostrar_piezas_i330(arbol, res, iEcopiezas, "Eco ")).grid(row=2, column=2, pady=5, padx=5)
 
     ttk.Separator(botonera_armadofinal, orient="horizontal", style="Separador2.TSeparator").grid(
-        row=3, column=0, sticky="ew", columnspan=4, pady=5, padx=5)
+        row=3, column=0, sticky="ew", columnspan=4, pady=1, padx=1)
 
     ttk.Label(caja5, style="WhiteOnRed.TLabel", text="Maquinas Teminadas", font=("Arial", 12, "bold")).grid(row=6, column=0, columnspan=2)
 
@@ -671,7 +723,7 @@ def seccion_armado(notebook):
 
     ttk.Label(caja5, style="WhiteOnRed.TLabel", text="Cantidad").grid(row=8, column=0)
     cantidad_final = tk.Entry(caja5, width=10)
-    cantidad_final.grid(row=8, column=1, pady=1)
+    cantidad_final.grid(row=8, column=1, pady=5, padx=5)
 
     tk.Button(
         caja5, 
@@ -694,7 +746,7 @@ def seccion_armado(notebook):
 
     ttk.Label(caja5, style="WhiteOnRed.TLabel", text="Cantidad").grid(row=13, column=0)
     cantidad_delete_final = tk.Entry(caja5, width=10)
-    cantidad_delete_final.grid(row=13, column=1, pady=1)
+    cantidad_delete_final.grid(row=13, column=1, pady=5, padx=5)
 
     tk.Button(
         caja5, 

@@ -48,6 +48,8 @@ def inicio(notebook):
     tk.Label(box1, text="Inoxidable 250", font=('Tahoma', 12), bg='#192965', fg='white').grid(row=5, column=0, padx=5, pady=5)
     tk.Label(box1, text="Pintada 330", font=('Tahoma', 12), bg='#192965', fg='white').grid(row=6, column=0, padx=5, pady=5)
     tk.Label(box1, text="Pintada 300", font=('Tahoma', 12), bg='#192965', fg='white').grid(row=7, column=0,padx=5, pady=5)
+    tk.Label(box1, text="Inoxidable Eco", font=('Tahoma', 12), bg='#192965', fg='white').grid(row=8, column=0,padx=5, pady=5)
+
 
 
     box2 = tk.Frame(index, bg='#192965')  # Establecer el color de fondo de box2
