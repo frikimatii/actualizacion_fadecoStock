@@ -125,7 +125,7 @@ calcomania_fadeco
 
    piezas	      cantidad   tipo
 garantia		1300	 folleto
-manual_instuc		1000	 folleto
+manual_instruciones		1000	 folleto
 etiqueta_peligro	624	 calco
 fadeco_300_3estrella	120	 calco
 fadeco_300_4estrella	1250	 calco

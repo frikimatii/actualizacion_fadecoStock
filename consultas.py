@@ -768,3 +768,4 @@ def consultorio(notebook):
     mostrar_registro.grid(row=4, column=0, columnspan=2)
 
 
+#TESTEO1

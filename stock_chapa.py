@@ -73,6 +73,7 @@ piezas_restante = [
     "planchuela_250",
     "portaeje",
 ]
+piezas_restante.sort()
 # ------------------------------------------------------------------------
 bases_dict = {
     "Inox 330": {
@@ -254,10 +255,10 @@ def crear_pestana_chapa(notebook):
     tipo_var = tk.IntVar()
     tipo_var.set(1)
 
-    acero_radio_agregar = tk.Radiobutton(pieza_agregar_chapa, text="Acero", variable=tipo_var, value=1, background='#192965', foreground='#9fa0a5')
+    acero_radio_agregar = tk.Radiobutton(pieza_agregar_chapa, text="Acero", variable=tipo_var, value=1, background='#192965', foreground='#fff',borderwidth=3, relief="raised",selectcolor='#2f3542')
     acero_radio_agregar.grid(row=1, column=0)
 
-    chapa_radio_agregar = tk.Radiobutton(pieza_agregar_chapa, text="Pintura", variable=tipo_var, value=2, background='#192965', foreground='#9fa0a5')
+    chapa_radio_agregar = tk.Radiobutton(pieza_agregar_chapa, text="Pintura", variable=tipo_var, value=2, background='#192965', foreground='#fff',borderwidth=3, relief="raised",selectcolor='#2f3542')
     chapa_radio_agregar.grid(row=1, column=1)
 
     ttk.Label(pieza_agregar_chapa, text="Agregar Pieza", style='WhiteOnRed.TLabel').grid(row=2, column=0)
@@ -298,11 +299,11 @@ def crear_pestana_chapa(notebook):
     tipo_var_d = tk.IntVar()
     tipo_var_d.set(1)
     acero_radio_eliminar = tk.Radiobutton(
-        pieza_eliminar_chapa, text="Acero", variable=tipo_var_d, value=1, background='#192965', foreground='#9fa0a5'
+        pieza_eliminar_chapa, text="Acero", variable=tipo_var_d, value=1, background='#192965', foreground='#fff',borderwidth=3, relief="raised",selectcolor='#2f3542'
     )
     acero_radio_eliminar.grid(row=1, column=0)
     chapa_radio_eliminar = tk.Radiobutton(
-        pieza_eliminar_chapa, text="Pintura", variable=tipo_var_d, value=2, background='#192965', foreground='#9fa0a5'
+        pieza_eliminar_chapa, text="Pintura", variable=tipo_var_d, value=2 ,background='#192965', foreground='#fff',borderwidth=3, relief="raised",selectcolor='#2f3542'
     )
     chapa_radio_eliminar.grid(row=1, column=1)
 
@@ -407,11 +408,11 @@ def crear_pestana_chapa(notebook):
     tipo_var_c.set(1)
 
     acero_radio_agregar = tk.Radiobutton(
-        pieza_agregar_cabezal, text="Acero", variable=tipo_var_c, value=1, background='#192965', foreground='#9fa0a5'
+        pieza_agregar_cabezal, text="Acero", variable=tipo_var_c, value=1, background='#192965', foreground='#fff',borderwidth=3, relief="raised",selectcolor='#2f3542'
     )
     acero_radio_agregar.grid(row=1, column=0)
     chapa_radio_agregar = tk.Radiobutton(
-        pieza_agregar_cabezal, text="Pintura", variable=tipo_var_c, value=2, background='#192965', foreground='#9fa0a5'
+        pieza_agregar_cabezal, text="Pintura", variable=tipo_var_c, value=2, background='#192965', foreground='#fff',borderwidth=3, relief="raised",selectcolor='#2f3542'
     )
     chapa_radio_agregar.grid(row=1, column=1)
 
@@ -461,11 +462,11 @@ def crear_pestana_chapa(notebook):
     tipo_var_ce = tk.IntVar()
     tipo_var_ce.set(1)
     acero_radio_eliminar = tk.Radiobutton(
-        pieza_eliminar_cabezal, text="Acero", variable=tipo_var_ce, value=1, background='#192965', foreground='#9fa0a5'
+        pieza_eliminar_cabezal, text="Acero", variable=tipo_var_ce, value=1, background='#192965', foreground='#fff',borderwidth=3, relief="raised",selectcolor='#2f3542'
     )
     acero_radio_eliminar.grid(row=1, column=0)
     chapa_radio_eliminar = tk.Radiobutton(
-        pieza_eliminar_cabezal, text="Pintura", variable=tipo_var_ce, value=2, background='#192965', foreground='#9fa0a5'
+        pieza_eliminar_cabezal, text="Pintura", variable=tipo_var_ce, value=2, background='#192965', foreground='#fff',borderwidth=3, relief="raised",selectcolor='#2f3542'
     )
     chapa_radio_eliminar.grid(row=1, column=1)
 
@@ -777,7 +778,7 @@ def crear_pestana_chapa(notebook):
         cabezales_terminados,
         text="Agregar",
         style="TButton",
-        command= lambda: armar_cabezales_inox(entrada_cantida_inox.get(), lista_acciones)
+        command= lambda: armar_cabezales_inox(entrada_cantida_inox, lista_acciones)
     )
     btn_agregar_cabezal_inox.grid(row=3, column=0, padx=3)
 
@@ -790,7 +791,7 @@ def crear_pestana_chapa(notebook):
         cabezales_terminados,
         text="Agregar",
         style="TButton",
-        command=lambda: armar_cabezales_pint(entrada_cantidad_pintada.get(), lista_acciones)
+        command=lambda: armar_cabezales_pint(entrada_cantidad_pintada, lista_acciones)
     )
     btn_agregar_cabezal_pintada.grid(row=3, column=1, padx=3)
     
@@ -803,7 +804,7 @@ def crear_pestana_chapa(notebook):
         cabezales_terminados,
         text="Agregar",
         style="TButton",
-        command=lambda: armar_cabezales_250(entrada_cantidad_250.get(), lista_acciones)
+        command=lambda: armar_cabezales_250(entrada_cantidad_250, lista_acciones)
         )
 
     btn_agregar_cabezal_pintada.grid(row=3, column=2, padx=3 )
@@ -833,3 +834,4 @@ def crear_pestana_chapa(notebook):
         relief="flat" 
 
 )
+#TESTEO1

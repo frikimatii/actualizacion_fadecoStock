@@ -19,7 +19,7 @@ from funciones import (
 
 
 piezas_fundidor_aluminio = [
-   "caja_250", "caja_300", "caja_330", "brazo_300", "brazo_250", "manchon", "manchon_250", "eje", "eje_250", "cubrecuchilla_330", "cubrecuchilla_300", "cubrecuchilla_250",
+   "caja_250", "caja_300", "caja_330","brazo_330", "brazo_300", "brazo_250", "manchon", "manchon_250", "eje", "eje_250", "cubrecuchilla_330", "cubrecuchilla_300", "cubrecuchilla_250",
    "teletubi_250", "teletubi_300", "teletubi_330", "velero", "aro_numerador", "base_afilador_330", "base_afilador_300", "base_afilador_250", "tapa_afilador", "tapa_afilador_250", "carcaza_afilador"
 ]
 
@@ -56,7 +56,7 @@ calcomanias_folletos = [
     "fadeco_330_4estrella",
     "fadeco_triangulo",
     "garantia",
-    "manual_instuc"
+    "manual_instruciones"
 ]
 
 
@@ -885,4 +885,4 @@ def stock(notebook):
     btn_stock_en_bruto.grid(row=28, column=0, columnspan=2)
 
     
-    
+  #TESTEO1

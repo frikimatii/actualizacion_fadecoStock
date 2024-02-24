@@ -726,3 +726,6 @@ def ventana_provedores(notebook):
     ttk.Button(
         box7, text="Enviar", style="Estilo4.TButton", command=lambda: agregar_a_lista_tarea(caja_texto, result)
     ).grid(row=2, column=1, sticky="e", pady=2, padx=2)
+
+
+#TESTEO1

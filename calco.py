@@ -3,7 +3,7 @@ import sqlite3
 
 calco330Inox = {
     "garantia": 1,
-    "manual_instruc": 1,
+    "manual_instruciones": 1,
     "etiqueta_peligo": 1,
     "fadeco_330_4estrella": 1,
     "F_circulo": 1,
@@ -14,7 +14,7 @@ calco330Inox = {
 
 calco330Pintada = {
     "garantia": 1,
-    "manual_instruc": 1,
+    "manual_instruciones": 1,
     "etiqueta_peligo": 1,
     "fadeco_330_3estrella": 1,
     "F_circulo": 1,
@@ -25,7 +25,7 @@ calco330Pintada = {
 
 calco300Inox = {
     "garantia": 1,
-    "manual_instruc": 1,
+    "manual_instruciones": 1,
     "etiqueta_peligo": 1,
     "fadeco_300_4estrella": 1,
     "F_circulo": 1,
@@ -36,7 +36,7 @@ calco300Inox = {
 
 calco300Pintada = {
     "garantia": 1,
-    "manual_instruc": 1,
+    "manual_instruciones": 1,
     "etiqueta_peligo": 1,
     "fadeco_300_3estrella": 1,
     "F_circulo": 1,
@@ -47,7 +47,7 @@ calco300Pintada = {
 
 calco250Inox = {
     "garantia": 1,
-    "manual_instruc": 1,
+    "manual_instruciones": 1,
     "etiqueta_peligo": 1,
     "fadeco_250_2estrella": 1,
     "F_circulo": 1,
@@ -148,7 +148,7 @@ maquina_final_eco = {
     "pipas":2,
     "tubo_manija": 1,
     "afilador_final":1,
-    "perilla_cubrecuilla":2,
+    "perilla_cubrecuchilla":2,
     "perilla_afilador": 1,
     "base_afilador_250":1,
     "base_pre_armadaECOinox": 1,

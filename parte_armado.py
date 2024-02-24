@@ -298,7 +298,7 @@ iEcopiezas = [
     "teletubi_doblado_eco",
     "cuchilla_330",
     "vela_final_330",
-    "cuadrado_reguladore_final",
+    "cuadrado_regulador_final",
     "planchada_final_330",
     "varilla_brazo_330",
     "resorte_brazo",
@@ -306,7 +306,7 @@ iEcopiezas = [
     "pipas",
     "tubo_manija",
     "afilador_final",
-    "perilla_cubrecuilla",
+    "perilla_cubrecuchilla",
     "perilla_afilador",
     "base_afilador_250",
     "base_pre_armadaECOinox",
@@ -778,3 +778,4 @@ def seccion_armado(notebook):
 
 #-------------------------------------------------------------------------------
 
+#TESTEO1

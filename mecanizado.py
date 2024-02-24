@@ -23,7 +23,8 @@ from funciones import (
     sort_column_alpha,
     mecanizado_chapa,
     actualizar_pieza,
-    mostrar_datos
+    mostrar_datos,
+    mostrar_datos_balancin_terminado
 )
 
 tipo = ["330", "300", "250"]
@@ -480,7 +481,7 @@ def mecanizado(notebook):
         stock_balancin,
         text="Stock Terminado",
         style="Estilo4.TButton",
-        command= lambda:mostrar_datos_mecanizado(arbol, info, piezas_prenza, "Balancin", "piezas_finales_defenitivas")
+        command= lambda:mostrar_datos_balancin_terminado(arbol, info, piezas_prenza)
     ).grid(row=1, column=1, pady=2, padx=2)
 
     ttk.Separator(caja4, orient="horizontal", style="Separador1.TSeparator").grid(
@@ -702,3 +703,5 @@ def mecanizado(notebook):
     ttk.Separator(caja7, orient="vertical", style="SeparadorVertical.TSeparator").grid(
     row=0, column=2, rowspan=5, sticky="ns", padx=3
 )
+
+#TESTEO1

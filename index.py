@@ -64,4 +64,5 @@ def inicio(notebook):
     label_image2 = tk.Label(box2, image=image2, bg='#192965')  # Cambiar el color de fondo de la imagen
     label_image2.image = image2  # Para evitar que la imagen sea eliminada por el recolector de basura
     label_image2.grid(row=1, column=0, padx=25, pady=25 )
- 
+
+ #TESTEO1
