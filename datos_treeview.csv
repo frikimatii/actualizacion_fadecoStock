@@ -1,5 +1,7 @@
 Pieza,Cantidad,Modelo
-tapa_afilador,1,inoxidable 330
-tapa_afilador,2,inoxidable 300
-cabezal_pintura,3,pintada 330
-tapa_afilador,3,pintada 330
+afilador_final,1,inoxidable 330
+base_pre_armada330inox,2,inoxidable 330
+afilador_final,2,inoxidable 300
+base_pre_armada300inox,3,inoxidable 300
+afilador_final,3,inoxidable 250
+base_pre_armada250inox,4,inoxidable 250

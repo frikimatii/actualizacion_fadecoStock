@@ -2693,6 +2693,7 @@ def actualizar_pieza_torno(lista_predefinida, entrada_cantidad, res, table, tree
                     else:
                         cursor.execute("UPDATE piezas_finales_defenitivas SET cantidad = cantidad + ? WHERE piezas = ?", (entrada_actualizar, actualizar_pieza))
                         conn.commit()
+                        res.insert(0, f"Carga exitosa: Usted cargó {entrada_actualizar} {actualizar_pieza}:")
                     
                 else:
                     res.insert(0, f"No hay suficientes piezas de {actualizar_pieza} disponibles.")
@@ -2709,7 +2710,6 @@ def actualizar_pieza_torno(lista_predefinida, entrada_cantidad, res, table, tree
             # Actualizar la visualización de los datos
             mostrar_datos(tree, table, info)
             # Mostrar mensaje de éxito
-            res.insert(0, f"Carga exitosa: Usted cargó {entrada_actualizar} {actualizar_pieza}:")
         
     else:
         # Mostrar mensaje de cantidad ingresada no válida
@@ -2955,7 +2955,7 @@ def mostrar_cajas_bruto(arbol):
         arbol.insert("", "end", values=dato)
 
 
-def varilla_para_soldar(entrada_cantidad, varilla_tipo , lista_acciones):
+def varilla_para_soldar(entrada_cantidad, varilla_tipo, lista_acciones):
     if varilla_tipo == "varilla_330":
         tipo = "330"
     elif varilla_tipo == "varilla_300":
@@ -2968,8 +2968,8 @@ def varilla_para_soldar(entrada_cantidad, varilla_tipo , lista_acciones):
     if entrada_actualizar.strip().isdigit():
         entrada_actualizar = int(entrada_actualizar)
 
-        if entrada_actualizar < 0:
-            lista_acciones.insert(0, "La Cantidad NO puede ser Negativa")
+        if entrada_actualizar <= 0:
+            lista_acciones.insert(0, "La Cantidad NO puede ser Negativa o Cero")
         else:
             # Mostrar mensaje de confirmación
             confirmacion = messagebox.askyesno("Confirmar", f"¿Desea actualizar la cantidad de varillas soldadas: {entrada_actualizar} para el tipo {varilla_tipo}?")
@@ -2988,23 +2988,26 @@ def varilla_para_soldar(entrada_cantidad, varilla_tipo , lista_acciones):
 
                 if cantidad_actual is not None:
                     cantidad_actual = cantidad_actual[0]
-                    nueva_cantidad = cantidad_actual - entrada_actualizar
 
-                    cursor.execute(
-                        f"UPDATE chapa SET cantidad= cantidad  - ? WHERE piezas = 'varilla_{tipo}'",
-                        (entrada_actualizar,),
-                    )
-                    conn.commit()
-                    cursor.execute(
-                        f"UPDATE piezas_finales_defenitivas SET cantidad= cantidad + ? WHERE piezas = 'varilla_carro_{tipo}'",
-                        (entrada_actualizar,),
-                    )
+                    if cantidad_actual >= entrada_actualizar:  # Verificar si hay suficientes varillas disponibles
+                        nueva_cantidad = cantidad_actual - entrada_actualizar
 
-                    conn.commit()
-                    lista_acciones.insert(
-                        0, f"Varillas Soldadas: {entrada_actualizar}")
+                        cursor.execute(
+                            f"UPDATE chapa SET cantidad= cantidad  - ? WHERE piezas = 'varilla_{tipo}'",
+                            (entrada_actualizar,),
+                        )
+                        conn.commit()
+                        cursor.execute(
+                            f"UPDATE piezas_finales_defenitivas SET cantidad= cantidad + ? WHERE piezas = 'varilla_carro_{tipo}'",
+                            (entrada_actualizar,),
+                        )
+                        conn.commit()
+                        lista_acciones.insert(
+                            0, f"Varillas Soldadas: {entrada_actualizar}")
+                    else:
+                        lista_acciones.insert(0, "No hay suficientes varillas disponibles")
                 else:
-                    lista_acciones.insert(0, "Cantidad ingresada inválida")
+                    lista_acciones.insert(0, "Tipo de varilla ingresada inválida")
 
             except Exception as e:
                 # Manejo de errores
@@ -3018,8 +3021,6 @@ def varilla_para_soldar(entrada_cantidad, varilla_tipo , lista_acciones):
 
     else:
         lista_acciones.insert(0, "Ingrese un número válido")
-    pass 
-
 
 def mostrar_datos_mecanizado(arbol, info, piezas, tipo, tabla):
     conn = sqlite3.connect("basedatospiezas.db")

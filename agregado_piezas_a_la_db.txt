@@ -14,7 +14,13 @@ agregado de pinches normales y para 250
 agregado de bandejas para pintadas
 afirmacion antes de cada accion 
 agregado de calcomanias 
+archivo exeel para mandar imprimir 
+se agrego maquina Eco 330 con todos sus componestes. 
 
+testeo1 bien 
+testeo2 bien
+
+___________________________________________________________
 
 agregado para la tabla de piezas_finales_defenitivas 
 
@@ -43,8 +49,8 @@ agregado para la tabla de piezas_finales_defenitivas
 122	fadeco_250_2estrella	  0	calco		contro_calidad	   250	imprenta
 123	fadeco_330_3estrella	  0	calco		contro_calidad	   330	imprenta
 124	fadeco_300_3estrella	  0	calco		contro_calidad	   300	imprenta
-125	F_circulo		  1	calco		contro_calidad	   all	imprenta
-126	F_cuadrado		  1	calco		contro_calidad	   all	imprenta
+125	F_circulo		  0	calco		contro_calidad	   all	imprenta
+126	F_cuadrado		  0	calco		contro_calidad	   all	imprenta
 127	circulo_argentina	  0	calco		contro_calidad	   all	imprenta
 128	fadeco_triangulo	  0	calco		contro_calidad	   all	imprenta
 129	etiqueta_cable		  0	calco		contro_calidad	   all	imprenta
@@ -56,15 +62,17 @@ agregado para la tabla de piezas_finales_defenitivas
 135	capacitores_eco		  0	none		armado_de_caja	   eco	shop
 136	conector_hembra		  0	none		armado_de_caja 	   eco	shop
 137	cable_corto_eco		  0	none		armado_de_caja	   eco	shop
-138	motores_eco		  120	none		armado_de_caja	   eco	shop
+138	motores_eco		  0	none		armado_de_caja	   eco	shop
 139	tapa_plastico_eco	  0	plastico	armado_de_caja	   eco	injentor
 140	correa_eco		  0	none		armado_de_caja	   eco	shop
 141	capuchon_motor_eco	  0	plastico	armado_de_caja	   eco	injentor
-142	buje_eje_eco		  54	acero_dulce	armado_de_caja	   eco	torno
+142	buje_eje_eco		  0	acero_dulce	armado_de_caja	   eco	torno
 143	rectangulo_plastico_eco	  0	plastico	armado_de_caja	   eco	shop
-144	cable_220_eco		  170	none		pre_armado	   eco	shop
-145	teletubi_doblado_eco	  30	acero_dulce	armado_final	   eco	pintor
+144	cable_220_eco		  0	none		pre_armado	   eco	shop
+145	teletubi_doblado_eco	  0	acero_dulce	armado_final	   eco	pintor
 146	tapa_afilador_eco	  0	plastico	armado_final	   eco	injentor
+147	base_pre_armadaECOinox	  0	prefinal	armado_final	   eco	prearmado
+148	cajamotor_final_eco	  0	chapa		pre_armado	   eco	armado_caja
 ________________________________________________________________________________________________________
 
 
@@ -116,27 +124,7 @@ name: piezas_del_fundicion
 89	teletubi_doblado_eco	50	tubo		eco	pintor
 
 ________________________________________________________________
- new table 
 
-PARA CALCOMANIAS 
-
-
-calcomania_fadeco
-
-   piezas	      cantidad   tipo
-garantia		1300	 folleto
-manual_instruciones		1000	 folleto
-etiqueta_peligro	624	 calco
-fadeco_300_3estrella	120	 calco
-fadeco_300_4estrella	1250	 calco
-fadeco_330_4estrella	1264	 calco
-fadeco_250_2estrella	480	 calco
-fadeco_330_3estrella	36	 calco
-F_circulo		940	 calco
-F_cuadrado		646	 calco
-circulo_argentina	1206	 calco
-fadeco_triangulo	984	 calco
-etiqueta_cable		600	 calco
 
 ____________________________________________________________
 
