@@ -1752,9 +1752,7 @@ def armar_cabezales_250(entrada_cantidad_cabezales, lista_acciones):
     except sqlite3.Error as e:
         lista_acciones.insert(0, f"Error en la base de datos: {str(e)}")
     
-
 def armar_cabezales_pint(entrada_cantidad_cabezales, lista_acciones):
-    # Mostrar mensaje de confirmación
     cantidad_cabezales = entrada_cantidad_cabezales.get()
     confirmacion = messagebox.askyesno("Confirmar", f"¿Desea armar {cantidad_cabezales} cabezales para pintura?")
     
@@ -1770,6 +1768,7 @@ def armar_cabezales_pint(entrada_cantidad_cabezales, lista_acciones):
 
         piezas_faltantes = {}
 
+        # Verificar si hay suficientes piezas para todos los cabezales solicitados
         for pieza in cabezales_pintura:
             cursor.execute("SELECT cantidad FROM chapa WHERE tipo_de_base = 'pintura' AND piezas = ?", (pieza,))
             cantidad_disponible = cursor.fetchone()
@@ -1781,28 +1780,30 @@ def armar_cabezales_pint(entrada_cantidad_cabezales, lista_acciones):
 
                 if cantidad_faltante > 0:
                     piezas_faltantes[pieza] = cantidad_faltante
-                else:
-                    cursor.execute("UPDATE chapa SET cantidad = cantidad - ? WHERE tipo_de_base = 'pintura' AND piezas = ?",
-                                   (cantidad_necesaria, pieza))
-                    conn.commit()
 
-        if not piezas_faltantes:
-            cursor.execute("UPDATE piezas_del_fundicion SET cantidad = cantidad + ? WHERE modelo = 'cabezal' AND piezas = 'cabezal_pintura'",
-                           (cantidad_cabezales,))
-            conn.commit()
-            lista_acciones.insert(0, f"Se agregaron {cantidad_cabezales} cabezales para pintura")
-            
-        else:
+        if piezas_faltantes:
             lista_acciones.insert(0, "No hay suficientes piezas para armar los cabezales de pintura. Faltan las siguientes piezas:")
             for pieza, cantidad_faltante in piezas_faltantes.items():
-               lista_acciones.insert(1, f"{pieza}: {cantidad_faltante} unidades.")
+                lista_acciones.insert(1, f"{pieza}: {cantidad_faltante} unidades.")
+            return  # Detener la función si faltan piezas para armar todos los cabezales solicitados
+
+        # Si hay suficientes piezas, proceder a actualizar la base de datos
+        for pieza in cabezales_pintura:
+            cantidad_necesaria = int(cantidad_cabezales)
+            cursor.execute("UPDATE chapa SET cantidad = cantidad - ? WHERE tipo_de_base = 'pintura' AND piezas = ?",
+                           (cantidad_necesaria, pieza))
+            conn.commit()
+
+        cursor.execute("UPDATE piezas_del_fundicion SET cantidad = cantidad + ? WHERE modelo = 'cabezal' AND piezas = 'cabezal_pintura'",
+                       (cantidad_cabezales,))
+        conn.commit()
+        lista_acciones.insert(0, f"Se agregaron {cantidad_cabezales} cabezales para pintura")
 
         conn.close()
         entrada_cantidad_cabezales.delete(0, 'end')
         
     except sqlite3.Error as e:
         lista_acciones.insert(0, f"Error en la base de datos: {str(e)}")
-
 
 
 def mostrar_bases_en_bruto(tree1, subtitulo):
@@ -4613,6 +4614,12 @@ iEco = {
 
 
 def armado_de_maquinas(cantidad_maquinas, tipo_seleccionado, result):
+    # Mostrar messagebox para confirmar los cambios
+    confirmacion = messagebox.askyesno("Confirmar", f"¿Desea agregar {cantidad_maquinas} máquinas {tipo_seleccionado}?")
+    if not confirmacion:
+        result.insert(0, "Se canceló la operación de armado de máquinas.")
+        return
+
     conn = sqlite3.connect("basedatospiezas.db")
     cursor = conn.cursor()
 
@@ -4665,22 +4672,16 @@ def armado_de_maquinas(cantidad_maquinas, tipo_seleccionado, result):
         # Si todas las piezas están disponibles, resta las cantidades
         for pieza, cantidad_necesaria in tipo_a_ensamblar.items():
             cursor.execute("UPDATE piezas_finales_defenitivas SET cantidad = cantidad - ? WHERE sector IN ('armado_final', 'contro_calidad') AND piezas = ?",
-               (cantidad_necesaria, pieza))
+                           (cantidad_necesaria, pieza))
             conn.commit()
 
         cursor.execute(f"UPDATE producto_final SET cantidad = cantidad + ? WHERE piezas = ?",
                        (int(cantidad_maquinas), tipo_seleccionado))
         conn.commit()
 
-        # Mostrar messagebox para confirmar los cambios
-        confirmacion = messagebox.askyesno("Confirmar", f"¿Desea agregar {cantidad_maquinas} máquinas {tipo_seleccionado}?")
-        if confirmacion:
-            text3 = f"Se agregaron {cantidad_maquinas} máquinas {tipo_seleccionado}."
-            result.insert(0, text3)
-            cantidad_maquinas.delete(0, 'end')  # Borra el contenido del Entry
-        else:
-            text4 = "Se canceló la operación de armado de máquinas."
-            result.insert(0, text4)
+        text3 = f"Se agregaron {cantidad_maquinas} máquinas {tipo_seleccionado}."
+        result.insert(0, text3)
+        cantidad_maquinas.delete(0, 'end')  # Borra el contenido del Entry
     else:
         # Si alguna pieza falta, muestra un mensaje
         text4 = "No se pueden armar las máquinas. Faltan las siguientes piezas:"
@@ -4688,7 +4689,6 @@ def armado_de_maquinas(cantidad_maquinas, tipo_seleccionado, result):
         for pieza, cantidad_faltante in piezas_faltantes:
             result.insert(0, f"{pieza}: {cantidad_faltante} unidades.")
     conn.close()
-
 
 
 

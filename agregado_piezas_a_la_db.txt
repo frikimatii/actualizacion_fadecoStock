@@ -76,7 +76,7 @@ agregado para la tabla de piezas_finales_defenitivas
 149	calco_tensor_correa	  0	calco		contro_calidad	   eco	imprenta
 150	calco_verde_eco		  0	calco		contro_calidad	   eco	imprenta
 151	silbato			  0	plastico	armado_final	   eco	injentor
-152	rulemanR6	     0	none	        armado_de_caja     250	shop
+152	rulemanR6	     	  0	none	        armado_de_caja     250	shop
 ________________________________________________________________________________________________________
 
 
