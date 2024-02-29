@@ -25,9 +25,9 @@ piezas_fundidor_aluminio = [
 
 piezas_fundidor_hierro = ["carros", "movimientos", "carros_250"]
 
-piezas_plastico = ["tapa_afilador_eco" ,"rectangulo_plastico_eco", "capuchon_motor_eco", "perilla_numerador", "espiral", "perilla_brazo", "cubre_motor_rectangulo", "cubre_motor_cuadrado", "tapita_perilla","capuchon_afilador", "capuchon_250", "polea_chica", "polea_grande","tapa_plastico_eco"]
+piezas_plastico = ["silbato","tapa_afilador_eco" ,"rectangulo_plastico_eco", "capuchon_motor_dodo", "perilla_numerador", "espiral", "perilla_brazo", "cubre_motor_rectangulo", "cubre_motor_cuadrado", "tapita_perilla","capuchon_afilador", "capuchon_250", "polea_chica", "polea_grande","tapa_correa_eco"]
 
-shop = ["cable_220_eco", "correa_eco", "cable_220w", "ruleman_6005", "ruleman_6205", "oring", "capacitores", "cable_corto_eco", "conector_hembra", "capacitores_250","capacitores_eco", "cuchilla_330", "cuchilla_300", "cuchilla_250", "resorte_brazo", "perilla_cubrecuchilla", "perilla_afilador", "resorte_movimiento", "seguer", "sinfin", "resorte_carro", "piedra_afilador", "patas", "teclas", "corona_330", "corona_300", "corona_250", "pipas","motores_eco", "motores_220w", "motores250_220w", "ruleman608", "resorte_palanca", "resorte_empuje", "ruleman6000", "ruleman_6004", "ruleman_6204",]
+shop = ["cable_220_eco", "correa_eco", "cable_220w", "ruleman_6005", "ruleman_6205", "oring", "capacitores", "cable_corto_eco", "conector_hembra", "capacitores_250","capacitores_eco", "cuchilla_330", "cuchilla_300", "cuchilla_250", "resorte_brazo", "perilla_cubrecuchilla", "perilla_afilador", "resorte_movimiento", "seguer", "sinfin", "resorte_carro", "piedra_afilador", "patas", "teclas", "corona_330", "corona_300", "corona_250", "pipas","motores_eco", "motores_220w", "motores250_220w", "ruleman608", "resorte_palanca", "resorte_empuje", "ruleman6000", "ruleman_6004", "ruleman_6204", "rulemanR6"]
 
 tornilleria = ["tornillo_guia","rueditas", "tornillo_teletubi_eco"]
 
@@ -56,7 +56,9 @@ calcomanias_folletos = [
     "fadeco_330_4estrella",
     "fadeco_triangulo",
     "garantia",
-    "manual_instruciones"
+    "manual_instruciones",
+    "calco_tensor_correa",
+    "calco_verde_eco"
 ]
 
 
@@ -153,7 +155,7 @@ def stock(notebook):
     ttk.Label(caja2, text="Piezas",style="Color.TLabel").grid(row=2, column=0, padx=1, pady=1, sticky="e")
     
     predefinidas_aluminio = ttk.Combobox(
-        caja2, values=piezas_fundidor_aluminio, state="readonly", width=16
+        caja2, values=piezas_fundidor_aluminio, state="readonly", width=23
     )
     predefinidas_aluminio.grid(row=2, column=1, padx=1, pady=1, sticky="w")
     ttk.Label(caja2, text="Cantidad",style="Color.TLabel").grid(row=3, column=0, padx=1, pady=1, sticky="e")
@@ -187,7 +189,7 @@ def stock(notebook):
     
     ttk.Label(caja2, text="Piezas",style="Color.TLabel").grid(row=7, column=0, padx=1, pady=1, sticky="e")
     predefinidas_aluminio_delete = ttk.Combobox(
-        caja2, values=piezas_fundidor_aluminio, state="readonly", width=16
+        caja2, values=piezas_fundidor_aluminio, state="readonly", width=23
     )
     predefinidas_aluminio_delete.grid(row=7, column=1, padx=1, pady=1, sticky="w")
     ttk.Label(caja2, text="Cantidad",style="Color.TLabel").grid(row=8, column=0, padx=1, pady=1, sticky="e")
@@ -243,7 +245,7 @@ def stock(notebook):
     ttk.Label(caja2, text="Piezas",style="Color.TLabel").grid(row=17, column=0, padx=1, pady=1, sticky="e")
     
     predefinidas_hierro = ttk.Combobox(
-        caja2, values=piezas_fundidor_hierro, state="readonly", width=16
+        caja2, values=piezas_fundidor_hierro, state="readonly", width=23
     )
     predefinidas_hierro.grid(row=17, column=1, padx=1, pady=1, sticky="w")
     
@@ -278,7 +280,7 @@ def stock(notebook):
     ttk.Label(caja2, text="Piezas",style="Color.TLabel").grid(row=22, column=0, padx=1, pady=1, sticky="e")
     
     predefinidas_hierro_delete = ttk.Combobox(
-        caja2, values=piezas_fundidor_hierro, state="readonly", width=16)
+        caja2, values=piezas_fundidor_hierro, state="readonly", width=23)
     predefinidas_hierro_delete.grid(row=22, column=1, padx=1, pady=1, sticky="w")
     
     ttk.Label(caja2, text="Cantidad",style="Color.TLabel").grid(row=23, column=0, padx=1, pady=1, sticky="e")
@@ -335,7 +337,7 @@ def stock(notebook):
     ttk.Label(caja3, text="Piezas",style="Color.TLabel").grid(row=2, column=0, padx=1, pady=1, sticky="e")
     
     predefinidas_plastico = ttk.Combobox(
-        caja3, values=piezas_plastico, state="readonly", width=20
+        caja3, values=piezas_plastico, state="readonly", width=23
     )
     predefinidas_plastico.grid(row=2, column=1, padx=1, pady=1, sticky="w")
     
@@ -371,7 +373,7 @@ def stock(notebook):
     )
     ttk.Label(caja3, text="Piezas",style="Color.TLabel").grid(row=7, column=0, padx=1, pady=1, sticky="e")
     predefinidas_plastico_delete = ttk.Combobox(
-        caja3, values=piezas_plastico, state="readonly", width=16
+        caja3, values=piezas_plastico, state="readonly", width=23
     )
     predefinidas_plastico_delete.grid(row=7, column=1, padx=1, pady=1, sticky="w")
     ttk.Label(caja3, text="Cantidad",style="Color.TLabel").grid(row=8, column=0, padx=1, pady=1, sticky="e")
@@ -516,7 +518,7 @@ def stock(notebook):
     ttk.Label(caja4, text="Piezas",style="Color.TLabel").grid(row=2, column=0, padx=1, pady=1, sticky="e")
     
     predefinidas_chapa_final = ttk.Combobox(
-        caja4, values=piezas_chapa_final, state="readonly", width=20
+        caja4, values=piezas_chapa_final, state="readonly", width=23
     )
     predefinidas_chapa_final.grid(row=2, column=1, padx=1, pady=1 , sticky="w")
     ttk.Label(caja4, text="Cantidad",style="Color.TLabel").grid(row=3, column=0, padx=1, pady=1, sticky="e")
@@ -551,7 +553,7 @@ def stock(notebook):
     ttk.Label(caja4, text="Piezas",style="Color.TLabel").grid(row=7, column=0, padx=1, pady=1, sticky="e")
     
     predefinidas_chapa_final_delete = ttk.Combobox(
-        caja4, values=piezas_chapa_final, state="readonly", width=16
+        caja4, values=piezas_chapa_final, state="readonly", width=23
     )
     predefinidas_chapa_final_delete.grid(row=7, column=1, padx=1, pady=1, sticky="w")
     ttk.Label(caja4, text="Cantidad",style="Color.TLabel").grid(row=8, column=0, padx=1, pady=1, sticky="e")
@@ -606,7 +608,7 @@ def stock(notebook):
     )
     ttk.Label(caja4, text="Piezas",style="Color.TLabel").grid(row=17, column=0, padx=1, pady=1, sticky="e")
     predefinidas_pieza_final = ttk.Combobox(
-        caja4, values=piezas_, state="readonly", width=20
+        caja4, values=piezas_, state="readonly", width=23
     )
     predefinidas_pieza_final.grid(row=17, column=1, padx=1, pady=1, sticky="w")
     
@@ -641,7 +643,7 @@ def stock(notebook):
     )
     ttk.Label(caja4, text="Piezas",style="Color.TLabel").grid(row=22, column=0, padx=1, pady=1, sticky="e")
     predefinidas_pieza_final_delete = ttk.Combobox(
-        caja4, values=piezas_, state="readonly", width=16
+        caja4, values=piezas_, state="readonly", width=23
     )
     predefinidas_pieza_final_delete.grid(row=22, column=1, padx=1, pady=1, sticky="w")
     ttk.Label(caja4, text="Cantidad",style="Color.TLabel").grid(row=23, column=0, padx=1, pady=1, sticky="e")
@@ -700,7 +702,7 @@ def stock(notebook):
     )
     ttk.Label(caja5, text="Piezas",style="Color.TLabel").grid(row=3, column=0, padx=1, pady=1, sticky="e")
     predefinidas_tornillo_final = ttk.Combobox(
-        caja5, values=tornilleria, state="readonly", width=16
+        caja5, values=tornilleria, state="readonly", width=23
     )
     predefinidas_tornillo_final.grid(row=3, column=1, padx=1, pady=1, sticky="w")
     ttk.Label(caja5, text="Cantidad",style="Color.TLabel").grid(row=4, column=0, padx=1, pady=1, sticky="e")
@@ -734,7 +736,7 @@ def stock(notebook):
     )
     ttk.Label(caja5, text="Piezas",style="Color.TLabel").grid(row=8, column=0, padx=1, pady=1, sticky="e")
     predefinidas_tornillo_final_delete = ttk.Combobox(
-        caja5, values=tornilleria, state="readonly",width=16
+        caja5, values=tornilleria, state="readonly",width=23
     )
     predefinidas_tornillo_final_delete.grid(row=8, column=1, padx=1, pady=1, sticky="w")
     ttk.Label(caja5, text="Cantidad",style="Color.TLabel").grid(row=9, column=0, padx=1, pady=1, sticky="e")
@@ -808,7 +810,7 @@ def stock(notebook):
     )
     ttk.Label(caja5, text="Piezas",style="Color.TLabel").grid(row=18, column=0, padx=1, pady=1, sticky="e")
     lista_calcos = ttk.Combobox(
-        caja5, values=calcomanias_folletos, state="readonly", width=16
+        caja5, values=calcomanias_folletos, state="readonly", width=23
     )
     lista_calcos.grid(row=18, column=1, padx=1, pady=1, sticky="w")
     ttk.Label(caja5, text="Cantidad",style="Color.TLabel").grid(row=19, column=0, padx=1, pady=1, sticky="e")
@@ -842,7 +844,7 @@ def stock(notebook):
     )
     ttk.Label(caja5, text="Piezas",style="Color.TLabel").grid(row=23, column=0, padx=1, pady=1, sticky="e")
     delete_calco = ttk.Combobox(
-        caja5, values=calcomanias_folletos, state="readonly",width=16
+        caja5, values=calcomanias_folletos, state="readonly",width=23
     )
     delete_calco.grid(row=23, column=1, padx=1, pady=1, sticky="w")
     ttk.Label(caja5, text="Cantidad",style="Color.TLabel").grid(row=24, column=0, padx=1, pady=1, sticky="e")

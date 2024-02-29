@@ -544,7 +544,7 @@ def ventana_provedores(notebook):
 
     tk.Button(
         box5,
-        text="Resivido",
+        text="Resibido",
         background="blue",
         foreground="white",
         padx=4,
@@ -675,7 +675,7 @@ def ventana_provedores(notebook):
 
     tk.Button(
         cajapintura3,
-        text="Resivir Cabzales",
+        text="Resibir Cabzales",
         background="blue",
         foreground="white",
         padx=10,

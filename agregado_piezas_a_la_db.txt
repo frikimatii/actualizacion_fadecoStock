@@ -63,9 +63,9 @@ agregado para la tabla de piezas_finales_defenitivas
 136	conector_hembra		  0	none		armado_de_caja 	   eco	shop
 137	cable_corto_eco		  0	none		armado_de_caja	   eco	shop
 138	motores_eco		  0	none		armado_de_caja	   eco	shop
-139	tapa_plastico_eco	  0	plastico	armado_de_caja	   eco	injentor
+139	tapa_correa_eco	  0	plastico	armado_de_caja	   eco	injentor
 140	correa_eco		  0	none		armado_de_caja	   eco	shop
-141	capuchon_motor_eco	  0	plastico	armado_de_caja	   eco	injentor
+141	capuchon_motor_dodo	  0	plastico	armado_de_caja	   eco	injentor
 142	buje_eje_eco		  0	acero_dulce	armado_de_caja	   eco	torno
 143	rectangulo_plastico_eco	  0	plastico	armado_de_caja	   eco	shop
 144	cable_220_eco		  0	none		pre_armado	   eco	shop
@@ -73,6 +73,10 @@ agregado para la tabla de piezas_finales_defenitivas
 146	tapa_afilador_eco	  0	plastico	armado_final	   eco	injentor
 147	base_pre_armadaECOinox	  0	prefinal	armado_final	   eco	prearmado
 148	cajamotor_final_eco	  0	chapa		pre_armado	   eco	armado_caja
+149	calco_tensor_correa	  0	calco		contro_calidad	   eco	imprenta
+150	calco_verde_eco		  0	calco		contro_calidad	   eco	imprenta
+151	silbato			  0	plastico	armado_final	   eco	injentor
+152	rulemanR6	     0	none	        armado_de_caja     250	shop
 ________________________________________________________________________________________________________
 
 

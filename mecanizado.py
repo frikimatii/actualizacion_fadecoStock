@@ -114,7 +114,7 @@ motores_finales250 = [
     "sinfin",
     "motores250_220w",
     "oring",
-    "ruleman6000"
+    "rulemanR6"
 
 ]
 motores_finales330.sort()
@@ -132,7 +132,7 @@ modelo250 = {
     "sinfin": 1,
     "motores250_220w": 1,
     "oring": 1,
-    "ruleman6000": 1
+    "rulemanR6": 1
 
 }
 

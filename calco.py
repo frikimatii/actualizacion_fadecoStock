@@ -104,9 +104,9 @@ caja_eco = {
     "cable_corto_eco": 1,
     "motores_eco": 1,
     "caja_soldada_eco": 1, 
-    "tapa_plastico_eco": 1,
+    "tapa_correa_eco": 1,
     "correa_eco": 1,
-    "capuchon_motor_eco": 1,
+    "capuchon_motor_dodo": 1,
     "eje_torneado_eco_final": 1,
     "rectangulo_plastico_eco": 1
 }
@@ -145,6 +145,7 @@ maquina_final_eco = {
     "varilla_brazo_330":1,
     "resorte_brazo":1,
     "tapa_afilador_eco":1,
+    "silbato":1,
     "pipas":2,
     "tubo_manija": 1,
     "afilador_final":1,

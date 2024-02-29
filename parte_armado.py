@@ -22,7 +22,7 @@ piezas_delete_armadocaja = [
     "sinfin",
     "motores250_220w",
     "oring",
-    "ruleman6000",
+    "rulemanR6",
     "ruleman_6004",
     "ruleman_6204",
     "caja_soldada_eco",
@@ -33,9 +33,9 @@ piezas_delete_armadocaja = [
     "conector_hembra",
     "cable_corto_eco",
     "motores_eco",
-    "tapa_plastico_eco",
+    "tapa_correa_eco",
     "correa_eco",
-    "capuchon_motor_eco",
+    "capuchon_motor_dodo",
     "buje_eje_eco",
     "rectangulo_plastico_eco"
 ]
@@ -56,13 +56,14 @@ piezas_delete_prearmado = [
     "carros_250",
     "carros_final",
     "carro_250_final",
-    "movimiento_final"
+    "movimiento_final",
     "eje_rectificado",
     "espiral",
     "guia_U",
     "inox_250",
     "inox_300",
     "inox_330",
+    "inox_eco",
     "movimientos",
     "patas",
     "perilla_numerador",
@@ -76,7 +77,7 @@ piezas_delete_prearmado = [
     "varilla_carro_300",
     "varilla_carro_330",
     "bandeja_330",
-    "bandeja_300"
+    "bandeja_300",
     "inox_eco"
 ]
 piezas_delete_prearmado.sort()
@@ -92,7 +93,7 @@ motores_250 = (
     "oring",
     "ruleman_6004",
     "ruleman_6204",
-    "ruleman6000",
+    "rulemanR6",
     "seguer",
     "sinfin"
 )
@@ -129,7 +130,7 @@ motores_eco = {
     "cable_corto_eco",
     "caja_soldada_eco",
     "capacitores_eco",
-    "capuchon_motor_eco",
+    "capuchon_motor_dodo",
     "conector_hembra",
     "correa_eco",
     "buje_eje_eco",
@@ -137,7 +138,7 @@ motores_eco = {
     "polea_chica",
     "polea_grande",
     "rectangulo_plastico_eco",
-    "tapa_plastico_eco",
+    "tapa_correa_eco",
     "teclas",
     "tornillo_teletubi_eco_fin"
 }
@@ -182,105 +183,105 @@ i330pieza = {
     "pinche_lateral" 
     }
 i300pieza = {
-    "brazo_300" ,
-    "cubre_300" ,
-    "velero" ,
-    "perilla_brazo" ,
-    "cabezal_inox" ,
-    "teletu_300" ,
-    "cuchilla_300" ,
-    "cuadrado_regulador_final" ,
-    "vela_final_300" ,
-    "cubre_motor_rectangulo" ,
-    "cubre_motor_cuadrado" ,
-    "planchada_final_300" ,
-    "varilla_brazo_300" ,
-    "resorte_brazo" ,
-    "tapa_afilador" ,
-    "pipas" ,
-    "tubo_manija" ,
-    "afilador_final" ,
-    "perilla_cubrecuchilla" ,
-    "perilla_afilador" ,
-    "base_afilador_300" ,
-    "base_pre_armada300inox" ,
+    "brazo_300",
+    "cubre_300",
+    "velero",
+    "perilla_brazo",
+    "cabezal_inox",
+    "teletu_300",
+    "cuchilla_300",
+    "cuadrado_regulador_final",
+    "vela_final_300",
+    "cubre_motor_rectangulo",
+    "cubre_motor_cuadrado",
+    "planchada_final_300",
+    "varilla_brazo_300",
+    "resorte_brazo",
+    "tapa_afilador",
+    "pipas",
+    "tubo_manija",
+    "afilador_final",
+    "perilla_cubrecuchilla",
+    "perilla_afilador",
+    "base_afilador_300",
+    "base_pre_armada300inox",
     "piedra_afilador",
     "pinche_frontal",
     "pinche_lateral" 
 }
 i250pieza = {
-    "brazo_250" ,
-    "cubrecuchilla_250" ,
-    "velero" ,
-    "perilla_brazo" ,
-    "cabezal_250" ,
-    "teletubi_250" ,
-    "cuchilla_250" ,
-    "cuadrado_regulador_final" ,
-    "vela_final_250" ,
-    "planchada_final_250" ,
-    "varilla_brazo_250" ,
-    "resorte_brazo" ,
-    "tapa_afilador_250" ,
-    "pipas" ,
-    "tubo_manija_250" ,
-    "afilador_final" ,
-    "perilla_cubrecuchilla" ,
-    "perilla_afilador" ,
-    "base_afilador_250" ,
-    "base_pre_armada250inox" ,
-    "piedra_afilador" ,
+    "brazo_250",
+    "cubrecuchilla_250",
+    "velero",
+    "perilla_brazo",
+    "cabezal_250",
+    "teletubi_250",
+    "cuchilla_250",
+    "cuadrado_regulador_final",
+    "vela_final_250",
+    "planchada_final_250",
+    "varilla_brazo_250",
+    "resorte_brazo",
+    "tapa_afilador_250",
+    "pipas",
+    "tubo_manija_250",
+    "afilador_final",
+    "perilla_cubrecuchilla",
+    "perilla_afilador",
+    "base_afilador_250",
+    "base_pre_armada250inox",
+    "piedra_afilador",
     "capuchon_250",
     "pinche_frontal_250",
     "pinche_lateral_250" 
 }
 p330pieza = {
-    "brazo_330" ,
-    "cubrecuchilla_330" ,
-    "velero" ,
-    "perilla_brazo" ,
-    "cabezal_pintada" ,
-    "teletubi_330" ,
-    "cuchilla_330" ,
-    "cuadrado_regulador_final" ,
-    "vela_final_330" ,
-    "cubre_motor_rectangulo" ,
-    "cubre_motor_cuadrado" ,
-    "planchada_final_330" ,
-    "varilla_brazo_330" ,
-    "resorte_brazo" ,
-    "tapa_afilador" ,
-    "pipas" ,
-    "tubo_manija" ,
-    "afilador_final" ,
-    "perilla_cubrecuchilla" ,
-    "perilla_afilador" ,
-    "base_afilador_330" ,
-    "base_pre_armada330pint" ,
+    "brazo_330",
+    "cubrecuchilla_330",
+    "velero",
+    "perilla_brazo",
+    "cabezal_pintada",
+    "teletubi_330",
+    "cuchilla_330",
+    "cuadrado_regulador_final",
+    "vela_final_330",
+    "cubre_motor_rectangulo",
+    "cubre_motor_cuadrado",
+    "planchada_final_330",
+    "varilla_brazo_330",
+    "resorte_brazo",
+    "tapa_afilador",
+    "pipas",
+    "tubo_manija",
+    "afilador_final",
+    "perilla_cubrecuchilla",
+    "perilla_afilador",
+    "base_afilador_330",
+    "base_pre_armada330pint",
     "piedra_afilador",
     "pinche_frontal",
     "pinche_lateral" 
 }
 p300pieza = {
-    "brazo_300" ,
-    "cubre_300" ,
-    "velero" ,
-    "perilla_brazo" ,
-    "cabezal_pintada" ,
-    "teletu_300" ,
-    "cuchilla_300" ,
-    "cuadrado_regulador_final" ,
-    "vela_final_300" ,
-    "cubre_motor_rectangulo" ,
-    "cubre_motor_cuadrado" ,
-    "planchada_final_300" ,
-    "varilla_brazo_300" ,
-    "resorte_brazo" ,
-    "tapa_afilador" ,
-    "pipas" ,
-    "tubo_manija" ,
-    "afilador_final" ,
-    "perilla_cubrecuchilla" ,
+    "brazo_300",
+    "cubre_300",
+    "velero",
+    "perilla_brazo",
+    "cabezal_pintada",
+    "teletu_300",
+    "cuchilla_300",
+    "cuadrado_regulador_final",
+    "vela_final_300",
+    "cubre_motor_rectangulo",
+    "cubre_motor_cuadrado",
+    "planchada_final_300",
+    "varilla_brazo_300",
+    "resorte_brazo",
+    "tapa_afilador",
+    "pipas",
+    "tubo_manija",
+    "afilador_final",
+    "perilla_cubrecuchilla",
     "perilla_afilador",
     "base_afilador_300" ,
     "base_pre_armada300pint" ,
@@ -303,6 +304,7 @@ iEcopiezas = [
     "varilla_brazo_330",
     "resorte_brazo",
     "tapa_afilador_eco",
+    "silbato",
     "pipas",
     "tubo_manija",
     "afilador_final",
@@ -314,6 +316,7 @@ iEcopiezas = [
     "pinche_lateral",
     "pinche_frontal"
 ]
+iEcopiezas.sort()
 
 piezas_armado_final_delete = [
     "afilador_final",
@@ -369,9 +372,12 @@ piezas_armado_final_delete = [
     "pinche_frontal",
     "pinche_frontal_250",
     "pinche_lateral_250", 
-    "teletubi_eco_final"
+    "silbato",
+    "tapa_afilador_eco",
+    "teletubi_doblado_eco",
+    "cable_220_eco"
 ]
-
+piezas_armado_final_delete.sort()
 
 
 
@@ -543,7 +549,7 @@ def seccion_armado(notebook):
     ttk.Label(caja2, text="Piezas Rotas o Defectuosa", style="WhiteOnRed.TLabel", font=("Arial", 14, "bold")).grid(row=17, column=0, columnspan=2)
 
     ttk.Label(caja2, text="Seleccionar Piezas", style="WhiteOnRed.TLabel").grid(row=18, column=0)
-    pieza_del = ttk.Combobox(caja2, values=piezas_delete_armadocaja, state="readonly", width=16)
+    pieza_del = ttk.Combobox(caja2, values=piezas_delete_armadocaja, state="readonly", width=22)
     pieza_del.grid(row=18, column=1)
 
     ttk.Label(caja2, text="Cantidad", style="WhiteOnRed.TLabel").grid(row=19, column=0)
@@ -628,7 +634,7 @@ def seccion_armado(notebook):
         row=10, column=0, sticky="ew", columnspan=2, pady=3, padx=3)
 
     ttk.Label(caja4, text="Consulta", style="WhiteOnRed.TLabel", font=("Arial", 14, "bold")).grid(row=11, column=0, columnspan=2)
-    ttk.Label(caja4, text="Motores Terminados ", style="WhiteOnRed.TLabel").grid(row=12, column=0, columnspan=2)
+    ttk.Label(caja4, text="Pre Armado Terminados ", style="WhiteOnRed.TLabel").grid(row=12, column=0, columnspan=2)
     tk.Button(
         caja4,
         text="Terminados", 
@@ -645,7 +651,7 @@ def seccion_armado(notebook):
     ttk.Label(caja4, text="Piezas Rotas o Defectuosa", style="WhiteOnRed.TLabel").grid(row=15, column=0)
 
     ttk.Label(caja4, text="Seleccionar Piezas", style="WhiteOnRed.TLabel").grid(row=16, column=0)
-    prearmadolo_delete = ttk.Combobox(caja4, values=piezas_delete_prearmado, state="readonly", width=16)
+    prearmadolo_delete = ttk.Combobox(caja4, values=piezas_delete_prearmado, state="readonly", width=22)
     prearmadolo_delete.grid(row=16, column=1)
 
     ttk.Label(caja4, text="Cantidad", style="WhiteOnRed.TLabel").grid(row=17, column=0)
@@ -741,7 +747,7 @@ def seccion_armado(notebook):
     ttk.Label(caja5, style="WhiteOnRed.TLabel", font=("Arial", 12, "bold"), text="Piezas Rotas o Defectuosa").grid(row=11, column=0, columnspan=2)
 
     ttk.Label(caja5, style="WhiteOnRed.TLabel", text="Seleccionar Piezas").grid(row=12, column=0)
-    armadolo_delete = ttk.Combobox(caja5, values=piezas_armado_final_delete, state="readonly", width=18)
+    armadolo_delete = ttk.Combobox(caja5, values=piezas_armado_final_delete, state="readonly", width=22)
     armadolo_delete.grid(row=12, column=1)
 
     ttk.Label(caja5, style="WhiteOnRed.TLabel", text="Cantidad").grid(row=13, column=0)

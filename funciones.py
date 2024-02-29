@@ -1328,7 +1328,7 @@ def bases_soldador_terminadas(
     # Ventana de confirmación antes de eliminar las piezas
     confirmacion = messagebox.askyesno(
         "Confirmar", 
-        f"¿Estás seguro de resivir {cantidad} unidades del tipo {tipo} del soldador?"
+        f"¿Estás seguro de resibir {cantidad} unidades del tipo {tipo} del soldador?"
     )
     if not confirmacion:
         lista_acciones.insert(0, "Eliminación cancelada por el usuario.")
@@ -2072,7 +2072,7 @@ def mover_piezas_a_stock_pulidas(
         return
 
     # Mostrar una ventana de confirmación
-    confirmacion = messagebox.askyesno("Confirmar", f"¿Desea resivir {cantidad_ingresada} piezas de {pieza_seleccionada} al stock de piezas pulidas?")
+    confirmacion = messagebox.askyesno("Confirmar", f"¿Desea resibir {cantidad_ingresada} piezas de {pieza_seleccionada} al stock de piezas pulidas?")
 
     if confirmacion:
         conn = None
@@ -2298,7 +2298,7 @@ def envios_pulido_a_fabrica(
                 # Verificar si hay suficientes piezas en la primera tabla
                 if cantidad_actual >= cantidad:
                     # Solicitar confirmación al usuario antes de realizar cambios en la base de datos
-                    confirmacion = messagebox.askyesno("Confirmar", f"¿Estás seguro de resivir {cantidad} unidades de {pieza} a la fábrica?")
+                    confirmacion = messagebox.askyesno("Confirmar", f"¿Estás seguro de resibir {cantidad} unidades de {pieza} a la fábrica?")
                     if confirmacion:
                         nueva_cantidad = cantidad_actual - cantidad
                         cursor.execute(
@@ -2441,7 +2441,7 @@ def envios_de_niquelado_a_fabrica(
                 return
 
             # Solicitar confirmación al usuario antes de realizar cambios en la base de datos
-            confirmacion = messagebox.askyesno("Confirmar", f"¿Estás seguro de resivir {cantidad} unidades de {pieza} a la fábrica?")
+            confirmacion = messagebox.askyesno("Confirmar", f"¿Estás seguro de resibir {cantidad} unidades de {pieza} a la fábrica?")
             if not confirmacion:
                 return  # Si el usuario no confirma, salir de la función sin hacer cambios
 
@@ -2567,7 +2567,7 @@ def envios_pulido_a_fabrica_cabezal(
                 # Verificar si hay suficientes piezas en la primera tabla
                 if cantidad_actual >= cantidad:
                     # Solicitar confirmación al usuario antes de realizar cambios en la base de datos
-                    confirmacion = messagebox.askyesno("Confirmar", f"¿Estás seguro de resivir {cantidad} unidades de {pieza} a la fábrica?")
+                    confirmacion = messagebox.askyesno("Confirmar", f"¿Estás seguro de resibir {cantidad} unidades de {pieza} a la fábrica?")
                     if confirmacion:
                         nueva_cantidad = cantidad_actual - cantidad
                         cursor.execute(
@@ -3540,7 +3540,7 @@ def ensamblar_motor_terminado(modelo_seleccionado, cantidad_motores, res):
             "sinfin": 1,
             "motores250_220w": 1,
             "oring": 1,
-            "ruleman6000": 1
+            "rulemanR6": 1
 
         },
         4: {
@@ -3553,9 +3553,9 @@ def ensamblar_motor_terminado(modelo_seleccionado, cantidad_motores, res):
             "cable_corto_eco": 1,
             "motores_eco": 1,
             "caja_soldada_eco": 1, 
-            "tapa_plastico_eco": 1,
+            "tapa_correa_eco": 1,
             "correa_eco": 1,
-            "capuchon_motor_eco": 1,
+            "capuchon_motor_dodo": 1,
             "buje_eje_eco": 1,
             "rectangulo_plastico_eco": 1
             }
@@ -4243,7 +4243,7 @@ def armado_final_afiladores_y_agregar_cantidad(cantidad_ingresada_widget, res):
                     break
 
             if piezas_suficientes:
-                confirmacion = messagebox.askyesno("Confirmar", f"¿Estás seguro de que deseas resivir {cantidad_ingresada_int} unidades de afiladores de Roman?")
+                confirmacion = messagebox.askyesno("Confirmar", f"¿Estás seguro de que deseas resibir {cantidad_ingresada_int} unidades de afiladores de Roman?")
                 if confirmacion:
                     for pieza, cantidad_pieza in cantidad_piezas.items():
                         cantidad_restante = cantidad_actual[0] - cantidad_ingresada_int * cantidad_pieza
@@ -4587,7 +4587,8 @@ iEco = {
     "planchada_final_330":1,
     "varilla_brazo_330":1,
     "resorte_brazo":1,
-    "tapa_afilador_eco":1,
+    "tapa_afilador_eco": 1,
+    "silbato" :1,
     "pipas":2,
     "tubo_manija": 1,
     "afilador_final":1,
@@ -4598,7 +4599,16 @@ iEco = {
     "piedra_afilador": 1,
     "pinche_lateral": 1,
     "pinche_frontal":1,
-#       
+    "garantia": 1,
+    "manual_instruciones": 1,
+    "etiqueta_peligro": 1,
+    "F_circulo": 1,
+    "F_cuadrado": 1,
+    "circulo_argentina": 1,
+    "etiqueta_cable": 1,
+    "fadeco_330_4estrella": 1,    
+    "calco_tensor_correa":1,
+    "calco_verde_eco":1
 }
 
 
@@ -4873,7 +4883,7 @@ motor_250 = {
     "sinfin": 1,
     "motores250_220w": 1,
     "oring":1,
-    "ruleman6000": 1
+    "rulemanR6": 1
 
 }
 motor_eco = {
@@ -4885,9 +4895,9 @@ motor_eco = {
     "cable_corto_eco": 1,
     "motores_eco": 1,
     "caja_soldada_eco": 1, 
-    "tapa_plastico_eco": 1,
+    "tapa_correa_eco": 1,
     "correa_eco": 1,
-    "capuchon_motor_eco": 1,
+    "capuchon_motor_dodo": 1,
 
     "buje_eje_eco": 1,
     "rectangulo_plastico_eco": 1

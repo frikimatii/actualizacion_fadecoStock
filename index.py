@@ -66,3 +66,7 @@ def inicio(notebook):
     label_image2.grid(row=1, column=0, padx=25, pady=25 )
 
  #TESTEO1
+
+
+#ejecutable : ;;; 
+# pyinstaller --noconsole --icon=C:/Fadeco/img/FLogo.ico stock_fadeco.py

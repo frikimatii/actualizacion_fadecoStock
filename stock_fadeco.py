@@ -17,6 +17,7 @@ root.geometry("1250x650")
 notebook = ttk.Notebook(root)
 notebook.grid(row=0, column=0)
 
+
 inicio(notebook)
 stock(notebook)
 ventana_provedores(notebook)
