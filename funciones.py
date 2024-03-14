@@ -1259,7 +1259,7 @@ def eliminar_cantidad_de_piezas(
                     (cantidad, pieza),
                 )
 
-        lista_1 = ["chapa_principal_330", "lateral_front_eco", "lateral_atras_330"]
+        lista_1 = ["chapa_principal_eco", "lateral_front_eco", "lateral_atras_330"]
         lista_2 = ["planchuela_330", "varilla_330"]
         lista_3 = ["portaeje"]
 
@@ -1650,9 +1650,7 @@ def bases_soldador_terminadas(
         conn.close()
 
 
-import sqlite3
-from tkinter import messagebox
-
+#_--------------------------------------------------------------------------------
 def armar_cabezales_inox(entrada_cantidad_inox, lista_acciones):
     # Mostrar mensaje de confirmación
     confirmacion = messagebox.askyesno("Confirmar", f"¿Desea armar {entrada_cantidad_inox.get()} cabezales inox?")
@@ -1671,7 +1669,7 @@ def armar_cabezales_inox(entrada_cantidad_inox, lista_acciones):
             piezas_faltantes = {}
 
             for pieza in cabezales_inox:
-                cursor.execute("SELECT cantidad FROM chapa WHERE modelo = 'cabezal' AND piezas = ?", (pieza,))
+                cursor.execute("SELECT cantidad FROM chapa WHERE tipo_de_base = 'acero' AND modelo = 'cabezal' AND piezas = ?", (pieza,))
                 cantidad_disponible = cursor.fetchone()
 
                 if cantidad_disponible:
@@ -1681,17 +1679,20 @@ def armar_cabezales_inox(entrada_cantidad_inox, lista_acciones):
 
                     if cantidad_faltante > 0:
                         piezas_faltantes[pieza] = cantidad_faltante
-                    else:
-                        cursor.execute("UPDATE chapa SET cantidad = cantidad - ? WHERE modelo = 'cabezal' AND piezas = ?",
-                                       (cantidad_necesaria, pieza))
-                        conn.commit()
 
             if not piezas_faltantes:
-                cursor.execute("UPDATE piezas_del_fundicion SET cantidad = cantidad + ? WHERE modelo = 'cabezal' AND piezas = 'cabezal_inox'",
-                               (cantidad_cabezales,))
+                # Si no faltan piezas, actualizar las cantidades en la base de datos
+                for pieza in cabezales_inox:
+                    cantidad_necesaria = int(cantidad_cabezales)
+                    cursor.execute("UPDATE chapa SET cantidad = cantidad - ? WHERE modelo = 'cabezal' AND piezas = ? AND tipo_de_base = 'acero'",
+                                   (cantidad_necesaria, pieza))
                 conn.commit()
-                lista_acciones.insert(0, f"Se agregaron {cantidad_cabezales} cabezales inox ")
+
+                cursor.execute("UPDATE piezas_del_fundicion SET cantidad = cantidad + ? WHERE modelo = 'cabezal' AND piezas = 'cabezal_inox'",
+                               (sum(cantidad_cabezales),))
+                lista_acciones.insert(0, f"Se agregaron {sum(cantidad_cabezales)} cabezales inox ")
             else:
+                # Si faltan piezas, mostrar un mensaje con las piezas faltantes
                 lista_acciones.insert(0, "No hay suficientes piezas para armar los cabezales Inox. Faltan las siguientes piezas:")
                 for pieza, cantidad_faltante in piezas_faltantes.items():
                     lista_acciones.insert(1, f"{pieza}: {cantidad_faltante} unidades.")
@@ -1700,8 +1701,6 @@ def armar_cabezales_inox(entrada_cantidad_inox, lista_acciones):
     except sqlite3.Error as e:
         lista_acciones.insert(0, f"Error en la base de datos: {str(e)}")
 
-        
-#250import sqlite3
 def armar_cabezales_250(entrada_cantidad_cabezales, lista_acciones):
     # Mostrar mensaje de confirmación
     cantidad_cabezales = entrada_cantidad_cabezales.get()
@@ -1720,7 +1719,7 @@ def armar_cabezales_250(entrada_cantidad_cabezales, lista_acciones):
             piezas_faltantes = {}
 
             for pieza in cabezales_250:
-                cursor.execute("SELECT cantidad FROM chapa WHERE modelo = 'cabezal' AND piezas = ?", (pieza,))
+                cursor.execute("SELECT cantidad FROM chapa WHERE modelo = 'cabezal' AND tipo_de_base = 'acero' AND piezas = ?", (pieza,))
                 cantidad_disponible = cursor.fetchone()
 
                 if cantidad_disponible:
@@ -1730,28 +1729,28 @@ def armar_cabezales_250(entrada_cantidad_cabezales, lista_acciones):
 
                     if cantidad_faltante > 0:
                         piezas_faltantes[pieza] = cantidad_faltante
-                    else:
-                        cursor.execute("UPDATE chapa SET cantidad = cantidad - ? WHERE modelo = 'cabezal' AND piezas = ?",
-                                       (cantidad_necesaria, pieza))
-                        conn.commit()
-                else:
-                    lista_acciones.insert(0, f"No se encontró la pieza {pieza} en la base de datos.")
-                    return
 
             if not piezas_faltantes:
-                cursor.execute("UPDATE piezas_del_fundicion SET cantidad = cantidad + ? WHERE modelo = 'cabezal' AND piezas = 'cabezal_250'",
-                               (cantidad_cabezales,))
+                # Si no faltan piezas, actualizar las cantidades en la base de datos
+                for pieza in cabezales_250:
+                    cantidad_necesaria = int(cantidad_cabezales)
+                    cursor.execute("UPDATE chapa SET cantidad = cantidad - ? WHERE modelo = 'cabezal' AND tipo_de_base = 'acero' AND piezas = ?",
+                                   (cantidad_necesaria, pieza))
                 conn.commit()
-                lista_acciones.insert(0, f"Se agregaron {cantidad_cabezales} cabezales 250 ")
+
+                cursor.execute("UPDATE piezas_del_fundicion SET cantidad = cantidad + ? WHERE modelo = 'cabezal' AND piezas = 'cabezal_250'",
+                               (sum(cantidad_cabezales),))
+                lista_acciones.insert(0, f"Se agregaron {sum(cantidad_cabezales)} cabezales 250 ")
             else:
-                lista_acciones.insert(0, "No hay suficientes piezas para armar los cabezales. Faltan las siguientes piezas:")
+                # Si faltan piezas, mostrar un mensaje con las piezas faltantes
+                lista_acciones.insert(0, "No hay suficientes piezas para armar los cabezales 250. Faltan las siguientes piezas:")
                 for pieza, cantidad_faltante in piezas_faltantes.items():
                     lista_acciones.insert(1, f"{pieza}: {cantidad_faltante} unidades.")
-                    
+
             entrada_cantidad_cabezales.delete(0, 'end')
     except sqlite3.Error as e:
         lista_acciones.insert(0, f"Error en la base de datos: {str(e)}")
-    
+
 def armar_cabezales_pint(entrada_cantidad_cabezales, lista_acciones):
     cantidad_cabezales = entrada_cantidad_cabezales.get()
     confirmacion = messagebox.askyesno("Confirmar", f"¿Desea armar {cantidad_cabezales} cabezales para pintura?")
@@ -1770,7 +1769,7 @@ def armar_cabezales_pint(entrada_cantidad_cabezales, lista_acciones):
 
         # Verificar si hay suficientes piezas para todos los cabezales solicitados
         for pieza in cabezales_pintura:
-            cursor.execute("SELECT cantidad FROM chapa WHERE tipo_de_base = 'pintura' AND piezas = ?", (pieza,))
+            cursor.execute("SELECT cantidad FROM chapa WHERE modelo = 'cabezal' AND tipo_de_base = 'pintura' AND piezas = ?", (pieza,))
             cantidad_disponible = cursor.fetchone()
 
             if cantidad_disponible:
@@ -1782,26 +1781,26 @@ def armar_cabezales_pint(entrada_cantidad_cabezales, lista_acciones):
                     piezas_faltantes[pieza] = cantidad_faltante
 
         if piezas_faltantes:
+            # Si faltan piezas, mostrar un mensaje con las piezas faltantes
             lista_acciones.insert(0, "No hay suficientes piezas para armar los cabezales de pintura. Faltan las siguientes piezas:")
             for pieza, cantidad_faltante in piezas_faltantes.items():
                 lista_acciones.insert(1, f"{pieza}: {cantidad_faltante} unidades.")
-            return  # Detener la función si faltan piezas para armar todos los cabezales solicitados
+        else:
+            # Si todas las piezas están disponibles, proceder a actualizar la base de datos
+            for pieza in cabezales_pintura:
+                cantidad_necesaria = int(cantidad_cabezales)
+                cursor.execute("UPDATE chapa SET cantidad = cantidad - ? WHERE modelo = 'cabezal' AND tipo_de_base = 'pintura' AND piezas = ?",
+                               (cantidad_necesaria, pieza))
+                conn.commit()
 
-        # Si hay suficientes piezas, proceder a actualizar la base de datos
-        for pieza in cabezales_pintura:
-            cantidad_necesaria = int(cantidad_cabezales)
-            cursor.execute("UPDATE chapa SET cantidad = cantidad - ? WHERE tipo_de_base = 'pintura' AND piezas = ?",
-                           (cantidad_necesaria, pieza))
+            cursor.execute("UPDATE piezas_del_fundicion SET cantidad = cantidad + ? WHERE modelo = 'cabezal' AND piezas = 'cabezal_pintura'",
+                           (cantidad_cabezales,))
             conn.commit()
+            lista_acciones.insert(0, f"Se agregaron {cantidad_cabezales} cabezales para pintura")
 
-        cursor.execute("UPDATE piezas_del_fundicion SET cantidad = cantidad + ? WHERE modelo = 'cabezal' AND piezas = 'cabezal_pintura'",
-                       (cantidad_cabezales,))
-        conn.commit()
-        lista_acciones.insert(0, f"Se agregaron {cantidad_cabezales} cabezales para pintura")
+            entrada_cantidad_cabezales.delete(0, 'end')
 
         conn.close()
-        entrada_cantidad_cabezales.delete(0, 'end')
-        
     except sqlite3.Error as e:
         lista_acciones.insert(0, f"Error en la base de datos: {str(e)}")
 

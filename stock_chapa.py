@@ -31,6 +31,7 @@ from funciones import (
 
 piezas_pedefinida_chapas_base = [
     "chapa_principal_330",
+    "chapa_principal_eco",
     "lateral_front_330",
     "lateral_atras_330",
     "chapa_principal_300",
@@ -42,6 +43,7 @@ piezas_pedefinida_chapas_base = [
     "lateral_front_eco"
     
 ]
+piezas_pedefinida_chapas_base.sort()
 
 base_inox_330 = {"chapa_principal_330": 1, "lateral_front_330": 1, "lateral_atras_330": 1}
 
@@ -53,7 +55,7 @@ base_pintada_300 = {"chapa_principal_300": 1, "lateral_front_300": 1, "lateral_a
 
 base_inox_250 = {"chapa_principal_250": 1, "lateral_front_250": 1, "lateral_atras_250": 1}
 
-base_eco = {"chapa_principal_330": 1, "lateral_front_eco": 1, "lateral_atras_330": 1, "planchuela_330": 1, "varilla_330": 1, "portaeje": 1}
+base_eco = {"chapa_principal_eco": 1, "lateral_front_eco": 1, "lateral_atras_330": 1, "planchuela_330": 1, "varilla_330": 1, "portaeje": 1}
 
 piezas_faltante_330 = {"planchuela_330", "varilla_330", "portaeje"}
 
@@ -117,7 +119,7 @@ bases_dict = {
         "portaeje": "portaeje",
     },
     "Eco":{
-        "chapa_principal" : "chapa_principal_330",
+        "chapa_principal" : "chapa_principal_eco",
         "lateral_from_eco" : "lateral_from_eco",
         "lateral_atras" : "lateral_atras_330",
         "panchuela" : "planchuela_330",
@@ -262,7 +264,7 @@ def crear_pestana_chapa(notebook):
     chapa_radio_agregar.grid(row=1, column=1)
 
     ttk.Label(pieza_agregar_chapa, text="Agregar Pieza", style='WhiteOnRed.TLabel').grid(row=2, column=0)
-    lista_agregar_chapa = ttk.Combobox(pieza_agregar_chapa, values=piezas_pedefinida_chapas_base, state="readonly", style='WhiteOnRed.TCombobox', width=16)
+    lista_agregar_chapa = ttk.Combobox(pieza_agregar_chapa, values=piezas_pedefinida_chapas_base, state="readonly", style='WhiteOnRed.TCombobox', width=18)
     lista_agregar_chapa.grid(row=2, column=1, pady=4)
     
     ttk.Label(pieza_agregar_chapa, text="Cantidad", style='WhiteOnRed.TLabel').grid(row=3, column=0, sticky="nw")
@@ -309,7 +311,7 @@ def crear_pestana_chapa(notebook):
 
     ttk.Label(pieza_eliminar_chapa, text="Elimiar Pieza", style="WhiteOnRed.TLabel").grid(row=2, column=0, pady=1)
     lista_eliminar_chapa = ttk.Combobox(
-        pieza_eliminar_chapa, values=piezas_pedefinida_chapas_base, state="readonly", style="WhiteOnRed.TCombobox", width=16
+        pieza_eliminar_chapa, values=piezas_pedefinida_chapas_base, state="readonly", style="WhiteOnRed.TCombobox", width=18
     )
     lista_eliminar_chapa.grid(row=2, column=1, pady=4)
 
